@@ -97,12 +97,12 @@ class SessionWrapper{
 			Orderer orderer = client.newOrderer("orderer", "grpc://127.0.0.1:7050");
 			channel = client.newChannel("mychannel");
 			//channel = client.getChannel("mychannel");
-			//channel.addPeer(peer);
-//			EventHub eventHub = client.newEventHub("eventhub", "grpc://localhost:7053");
-//			channel.addEventHub(eventHub);
+			channel.addPeer(peer);
+			EventHub eventHub = client.newEventHub("eventhub", "grpc://localhost:7053");
+			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
-			//channel.initialize();
-			channel.joinPeer(peer);
+			channel.initialize();
+//			channel.joinPeer(peer);
 		} catch (Exception e) {	
 			logger.error("[Login Failed]:" + e.toString());
 			return false;

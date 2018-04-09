@@ -13,10 +13,10 @@ public class AppUser implements User {
 	private String mspId;
 	private Enrollment enrollment;
 	private LinkedHashSet<String> role;
-	public AppUser(String username, String organization, String affiliation) {
+	public AppUser(String username, String organization, String msp) {
 		this.username = username;
 		this.organization = organization;
-		this.mspId = affiliation;
+		this.mspId = msp;
 		this.role = new LinkedHashSet<String>();
 	}
 

@@ -54,8 +54,8 @@ public class sessionWebController {
 			caClient.setCryptoSuite(cryptoSuite);
 			HFClient client = HFClient.createNewInstance();
 			client.setCryptoSuite(cryptoSuite);
-			SessionWrapper u1 = new SessionWrapper(caClient, client, new AppUser(name, "Magenta", "Magenta"),
-					ChaincodeID.newBuilder().setName("mycc").build());
+			SessionWrapper u1 = new SessionWrapper(caClient, client, new AppUser(name, "Org1MSP", "Org1MSP"),
+					ChaincodeID.newBuilder().setName("fabcar").build());
 			u1.login(password);
 			commandFactory f1 = new commandFactory(query,args);
 			String queryAnsware = u1.queryDB(f1.getFormattedQuery());
