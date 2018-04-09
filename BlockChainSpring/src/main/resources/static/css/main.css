@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+h1 {
+	color: #4e9a06;
+}
+
+h2 {
+	
+}
+#response {
+	width: 100%;
+}
+
+#response tr td {
+	width: 20%;
+	text-align: center;
+}
