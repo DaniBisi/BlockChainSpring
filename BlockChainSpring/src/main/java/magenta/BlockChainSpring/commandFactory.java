@@ -23,9 +23,11 @@ public class commandFactory {
 		return formattedQ;
 	}
 
-	public command getCommand() {
+	public command getCommandParser() {
 		
 		switch (query) {
+		case "queryAllVisits":
+			return new parserAllVisits();
 		case "queryAllCars":
 			return new parserAll();
 		case "queryCar":

@@ -45,7 +45,7 @@ public class sessionWebController {
 			password = "adminpw";
 		}
 		if(StringUtils.isEmpty(query)) {
-			query = "queryAllCars";
+			query = "queryAllVisits";
 		}
 		CryptoSuite cryptoSuite;
 		try {
@@ -55,12 +55,12 @@ public class sessionWebController {
 			HFClient client = HFClient.createNewInstance();
 			client.setCryptoSuite(cryptoSuite);
 			SessionWrapper u1 = new SessionWrapper(caClient, client, new AppUser(name, "Org1MSP", "Org1MSP"),
-					ChaincodeID.newBuilder().setName("fabcar").build());
+					ChaincodeID.newBuilder().setName("employVisit").build());
 			u1.login(password);
 			commandFactory f1 = new commandFactory(query,args);
 			String queryAnsware = u1.queryDB(f1.getFormattedQuery());
-			LinkedList<Car> record;
-			record = f1.getCommand().execute(queryAnsware);
+			LinkedList<Items> record;
+			record = f1.getCommandParser().execute(queryAnsware);
 			
 			model.addAttribute("txId", u1.getTransactionId());
 			model.addAttribute("user", name);

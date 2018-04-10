@@ -1,7 +1,7 @@
 package magenta.BlockChainSpring;
 
 
-public class Car {
+public class Car implements Items{
 	private String color;
 	private String make;
 	private String model;

@@ -26,7 +26,6 @@
 		<div class="starter-template">
 			<h1>Query Fabcar Ledger</h1>
 			<div id="body">
-
 				<span>Transaction ID</span> <span th:text="${txId}" th:remove="tag">title</span>
 				<h1>All cars in ledger:</h1>
 				<table id="response">
@@ -37,12 +36,12 @@
 					<td>Model</td>
 					<td>Owner</td>
 					</tr>
-					<tr th:each="car : ${records}">
-					<td th:text="${car.key}"></td>
-					<td th:text="${car.color}"></td>
-					<td th:text="${car.make}"></td>
-					<td th:text="${car.model}"></td>
-					<td th:text="${car.owner}"></td>
+					<tr th:each="employ : ${records}">
+					<td th:text="${employ.ID}"></td>
+					<td th:text="${employ.IdHash}"></td>
+					<td th:text="${employ.agency}"></td>
+					<td th:text="${employ.name}"></td>
+					<td th:text="${employ.date}"></td>
 					</tr>
 				</table>
 				<span th:text="${record}" th:remove="tag">title</span>

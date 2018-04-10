@@ -11,9 +11,9 @@ public class parserCar implements command {
 
 	private static final Logger logger = LogManager.getLogger(parserCar.class);
 	@Override
-	public LinkedList<Car> execute(String arguments) {
+	public LinkedList<Items> execute(String arguments) {
 		JSONParser parser = new JSONParser();
-		LinkedList<Car> record = new LinkedList<Car>();
+		LinkedList<Items> record = new LinkedList<Items>();
 		try {
 			JSONObject jSonAnsware = (JSONObject) parser.parse(arguments);
 			record.add(new Car((String)jSonAnsware.get("Key"), (String)jSonAnsware.get("colour"), (String)jSonAnsware.get("make"), (String)jSonAnsware.get("model"), (String)jSonAnsware.get("owner")));
