@@ -65,6 +65,7 @@ public class sessionWebController {
 			model.addAttribute("txId", u1.getTransactionId());
 			model.addAttribute("user", name);
 			model.addAttribute("records", record);
+			model.addAttribute("valName", record.get(0).getValName());
 			model.addAttribute("queryAnsware", queryAnsware);
 		} catch (Exception e1) {
 			e1.printStackTrace();

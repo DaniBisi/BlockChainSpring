@@ -28,20 +28,14 @@
 			<div id="body">
 				<span>Transaction ID</span> <span th:text="${txId}" th:remove="tag">title</span>
 				<h1>All cars in ledger:</h1>
+				
 				<table id="response">
 					<tr>
-					<td>Key</td>
-					<td>Color</td>
-					<td>Make</td>
-					<td>Model</td>
-					<td>Owner</td>
+					<td th:each="name : ${valName}"><span th:text="${name}"></span></td>
 					</tr>
-					<tr th:each="employ : ${records}">
-					<td th:text="${employ.ID}"></td>
-					<td th:text="${employ.IdHash}"></td>
-					<td th:text="${employ.agency}"></td>
-					<td th:text="${employ.name}"></td>
-					<td th:text="${employ.date}"></td>
+					
+					<tr th:each="item : ${records}">
+					<td th:each="val : ${item.valList}"><span th:text="${val}"></span></td>
 					</tr>
 				</table>
 				<span th:text="${record}" th:remove="tag">title</span>
