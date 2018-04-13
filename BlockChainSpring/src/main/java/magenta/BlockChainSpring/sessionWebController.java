@@ -33,14 +33,12 @@ public class sessionWebController {
 		if (u1 == null || !u1.getLoginStatus()) {
 			model.addAttribute("resources", resources);
 			model.addAttribute("login", new LoginCollect());
-			retValue = "index";
 		} else {
 			model.addAttribute("u1", u1);
 			model.addAttribute("user", u1.getUserName());
 			model.addAttribute("query", new QueryCollect());
-			retValue = "query";
 		}
-		return retValue;
+		return "index";
 	}
 
 	@PostMapping("/login")
@@ -75,12 +73,10 @@ public class sessionWebController {
 			model.addAttribute("u1", u1);
 			model.addAttribute("user", name);
 			model.addAttribute("query", new QueryCollect());
-			retValue = "query";
 		} else {
-			retValue = "index";
 			model.addAttribute("login", new LoginCollect());
 		}
-		return retValue;
+		return "index";
 	}
 
 	@PostMapping("/query")

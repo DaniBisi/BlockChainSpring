@@ -27,20 +27,9 @@
 			<h1>Query Fabcar Ledger</h1>
 			<div id="body">
 				<div id="content">
-					<div th:fragment="header">
-						<p class="lead">Login form: Use the form below to login and
-							see cars in blockChain ledger.</p>
-						<form method="post" action="#" th:action="@{/login}"
-							th:object="${login}">
-							<h2>Name:</h2>
-							<input type="text" th:field="*{userName}" />
-							<h2>Password:</h2>
-							<input type="password"  th:field="*{password}" />
-							</br>
-							<input type="submit" id="login" value="Login" />
-
-						</form>
-					</div>
+					<div th:replace="fragments/indexForm :: ${u1==null || !u1.loginStatus} ? 'loginForm' : 'queryForm'">
+  &copy; 2016 The Static Templates
+</div>
 				</div>
 			</div>
 		</div>

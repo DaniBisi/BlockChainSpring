@@ -30,7 +30,7 @@
 				<span>Transaction ID</span> <span th:text="${u1.transactionID}" th:remove="tag">title</span>
 				<h1>Items in ledger:</h1>
 				
-				<table id="response">
+				<table id="response"  class="table table-striped table-bordered" >
 					<tr>
 					<td th:each="name : ${valName}"><span th:text="${name}"></span></td>
 					</tr>
