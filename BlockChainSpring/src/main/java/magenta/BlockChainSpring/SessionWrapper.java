@@ -35,6 +35,11 @@ class SessionWrapper {
 	private AppUser userLogged;
 	private String transactionID;
 	final ChaincodeID chainCodeId;
+	private boolean loginStatus;
+
+	public boolean getLoginStatus() {
+		return loginStatus;
+	}
 
 	public SessionWrapper(HFCAClient caClient, HFClient client, AppUser userLogged, ChaincodeID chainCodeId) {
 		BasicConfigurator.configure();
@@ -42,6 +47,7 @@ class SessionWrapper {
 		this.client = client;
 		this.userLogged = userLogged;
 		this.chainCodeId = chainCodeId;
+		loginStatus = false;
 	}
 
 	public String queryDB(String[] query) throws org.hyperledger.fabric.sdk.exception.InvalidArgumentException,
@@ -102,6 +108,7 @@ class SessionWrapper {
 			channel.addOrderer(orderer);
 			channel.initialize();
 			// channel.joinPeer(peer);
+			loginStatus = true;
 		} catch (Exception e) {
 			logger.error("[Login Failed]:" + e.toString());
 			return false;
@@ -132,8 +139,10 @@ class SessionWrapper {
 
 	}
 
-	public String getTransactionId() {
+	public String getTransactionID() {
 		return this.transactionID;
 	}
-
+	public String getUserName() {
+		return userLogged.getName();
+	}
 }

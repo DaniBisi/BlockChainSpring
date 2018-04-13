@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class parserCar implements command {
+public class ParseCar implements ParseAnsware {
 
-	private static final Logger logger = LogManager.getLogger(parserCar.class);
+	private static final Logger logger = LogManager.getLogger(ParseCar.class);
 	@Override
 	public LinkedList<Items> execute(String arguments) {
 		JSONParser parser = new JSONParser();

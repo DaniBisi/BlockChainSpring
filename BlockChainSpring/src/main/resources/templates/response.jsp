@@ -16,7 +16,8 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/query">Query</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -24,10 +25,10 @@
 	</nav>
 	<div class="container">
 		<div class="starter-template">
-			<h1>Query Fabcar Ledger</h1>
+			<h1>Query Ledger</h1>
 			<div id="body">
-				<span>Transaction ID</span> <span th:text="${txId}" th:remove="tag">title</span>
-				<h1>All cars in ledger:</h1>
+				<span>Transaction ID</span> <span th:text="${u1.transactionID}" th:remove="tag">title</span>
+				<h1>Items in ledger:</h1>
 				
 				<table id="response">
 					<tr>

@@ -4,6 +4,6 @@ import java.util.LinkedList;
 
 
 
-public interface command {
+public interface ParseAnsware {
 public LinkedList<Items> execute(String arguments);
 }

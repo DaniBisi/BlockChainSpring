@@ -9,8 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class parserAll implements command {
-	private static final Logger logger = LogManager.getLogger(parserAll.class);
+public class ParseAll implements ParseAnsware {
+	private static final Logger logger = LogManager.getLogger(ParseAll.class);
 	
 	@Override
 	public LinkedList<Items> execute(String arguments){
@@ -22,8 +22,11 @@ public class parserAll implements command {
 				JSONObject item = (JSONObject) jSonO;			
 				JSONObject itemProv = (JSONObject) item.get("Record"); 
 				logger.info("keyset = + "+ item.keySet().toString());
-				record.add(new Car((String)item.get("Key"), (String)itemProv.get("colour"), (String)itemProv.get("make"), (String)itemProv.get("model"), (String)itemProv.get("owner")));
-
+				Message m1 = new Message();
+				for (Object key : item.keySet()) {
+					m1.addMessage(key.toString(), item.get(key).toString());
+				}
+				record.add(m1);
 			}
 		} catch (ParseException e) {
 			logger.info("error parsing jsonobject");

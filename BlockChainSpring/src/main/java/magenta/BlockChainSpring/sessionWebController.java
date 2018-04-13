@@ -8,45 +8,52 @@ import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import ch.qos.logback.classic.Logger;
 import magenta.BlockChainSpring.AppUser;
-import magenta.BlockChainSpring.Car;
 import magenta.BlockChainSpring.SessionWrapper;
 import magenta.BlockChainSpring.commandFactory;
 
 @Controller
+@Scope("session")
 public class sessionWebController {
 	@Value("indexForm")
 	private String resources;
-	
+	private SessionWrapper u1;
+	private String retValue;
+	private String queryAnsware;
+
 	@GetMapping("/")
 	public String welcome(Model model) {
-	model.addAttribute("resources", resources);
-	model.addAttribute("login", new LoginCollect());
-	return "index";
+		if (u1 == null || !u1.getLoginStatus()) {
+			model.addAttribute("resources", resources);
+			model.addAttribute("login", new LoginCollect());
+			retValue = "index";
+		} else {
+			model.addAttribute("u1", u1);
+			model.addAttribute("user", u1.getUserName());
+			model.addAttribute("query", new QueryCollect());
+			retValue = "query";
+		}
+		return retValue;
 	}
-	
+
 	@PostMapping("/login")
-	public String loginUser(@ModelAttribute LoginCollect login,Model model) {
+	public String loginUser(@ModelAttribute("login") LoginCollect login, Model model) {
+		retValue = "";
 		String name = login.getUserName();
 		String password = login.getPassword();
-		String query = login.getQuery();
-		String args = login.getArgs();
-		
+
 		if (StringUtils.isEmpty(name)) {
 			name = "admin";
 			password = "adminpw";
 		}
-		if(StringUtils.isEmpty(query)) {
-			query = "queryAllVisits";
-		}
+
 		CryptoSuite cryptoSuite;
 		try {
 			cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
@@ -54,21 +61,61 @@ public class sessionWebController {
 			caClient.setCryptoSuite(cryptoSuite);
 			HFClient client = HFClient.createNewInstance();
 			client.setCryptoSuite(cryptoSuite);
-			SessionWrapper u1 = new SessionWrapper(caClient, client, new AppUser(name, "Org1MSP", "Org1MSP"),
+			u1 = new SessionWrapper(caClient, client, new AppUser(name, "Org1MSP", "Org1MSP"),
 					ChaincodeID.newBuilder().setName("employVisit").build());
+
 			u1.login(password);
-			commandFactory f1 = new commandFactory(query,args);
-			String queryAnsware = u1.queryDB(f1.getFormattedQuery());
-			LinkedList<Items> record;
-			record = f1.getCommandParser().execute(queryAnsware);
-			
-			model.addAttribute("txId", u1.getTransactionId());
-			model.addAttribute("user", name);
-			model.addAttribute("records", record);
-			model.addAttribute("valName", record.get(0).getValName());
-			model.addAttribute("queryAnsware", queryAnsware);
+
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		}
+
+		if (u1.getLoginStatus()) {
+
+			model.addAttribute("u1", u1);
+			model.addAttribute("user", name);
+			model.addAttribute("query", new QueryCollect());
+			retValue = "query";
+		} else {
+			retValue = "index";
+			model.addAttribute("login", new LoginCollect());
+		}
+		return retValue;
+	}
+
+	@PostMapping("/query")
+	public String queryRunner(@ModelAttribute("query") QueryCollect query, Model model) {
+
+		String queryReceived = query.getQuery();
+		String args = query.getArgs();
+		if (StringUtils.isEmpty(queryReceived)) {
+			queryReceived = "queryAllVisits";
+		}
+
+		commandFactory f1 = new commandFactory(queryReceived, args);
+		System.out.println("query: " + f1.getFormattedQuery().toString());
+		try {
+			queryAnsware = u1.queryDB(f1.getFormattedQuery());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		LinkedList<Items> record;
+		System.out.println("questa è la risposta." + queryAnsware);
+		record = f1.getCommandParser().execute(queryAnsware);
+
+		model.addAttribute("u1", u1);
+		model.addAttribute("records", record);
+		model.addAttribute("valName", record.get(0).getValName());
+		model.addAttribute("queryAnsware", queryAnsware);
+
+		if (u1.getLoginStatus()) {
+
+			model.addAttribute("u1", u1);
+			// model.addAttribute("query", new QueryCollect());
+			retValue = "response";
+		} else {
+			retValue = "index";
+			model.addAttribute("login", new LoginCollect());
 		}
 		return "response";
 	}

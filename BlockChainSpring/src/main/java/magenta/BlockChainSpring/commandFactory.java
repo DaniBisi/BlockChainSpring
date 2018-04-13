@@ -1,5 +1,9 @@
 package magenta.BlockChainSpring;
 
+import static org.hamcrest.CoreMatchers.endsWith;
+
+import java.util.LinkedList;
+
 import com.google.common.collect.ObjectArrays;
 
 public class commandFactory {
@@ -16,6 +20,7 @@ public class commandFactory {
 	public String[] getFormattedQuery() {
 
 		String[] formattedQ = { query };
+		System.out.println("query before: " + query + args);
 		if (!args.isEmpty()) {
 			String[] arguments = args.split(" ");
 			formattedQ = ObjectArrays.concat(formattedQ, arguments, String.class);
@@ -23,17 +28,21 @@ public class commandFactory {
 		return formattedQ;
 	}
 
-	public command getCommandParser() {
+	public ParseAnsware getCommandParser() {
 		
 		switch (query) {
 		case "queryAllVisits":
-			return new parserAllVisits();
+			return new ParseAllVisits();
 		case "queryAllCars":
-			return new parserAll();
+			return new ParseAll();
 		case "queryCar":
-			return new parserCar();
+			return new ParseCar();
+		case "queryVisit":
+			return new ParseVisit();
+		case "createVisit":
+		return new ParseMessage();
 		default:
-			return null;
+			return new ParseAll();
 		}
 	}
 

@@ -28,16 +28,21 @@
 			<div id="body">
 				<div id="content">
 					<div th:fragment="header">
-						<p class="lead">Login form: Use the form below to login and
-							see cars in blockChain ledger.</p>
-						<form method="post" action="#" th:action="@{/login}"
-							th:object="${login}">
-							<h2>Name:</h2>
-							<input type="text" th:field="*{userName}" />
-							<h2>Password:</h2>
-							<input type="password"  th:field="*{password}" />
-							</br>
-							<input type="submit" id="login" value="Login" />
+						<p class="lead">
+							Hello <span th:text="${user}"></span> use this form to query the
+							ledger
+						</p>
+						<form method="post" action="#" th:action="@{/query}"
+							th:object="${query}">
+							<h2>Query:</h2>
+							<select th:field="*{query}">
+								<option value="queryVisit">Query one Visit</option>
+								<option value="queryAllVisits">Query all visit</option>
+								<option value="mercedes">Query last visit</option>
+								</select>
+							<h2>Arguments:</h2>
+							<input type="text" th:field="*{args}" /> </br> </br> <input type="submit"
+								id="query" value="Query" />
 
 						</form>
 					</div>
