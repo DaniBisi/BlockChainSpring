@@ -63,7 +63,17 @@ class SessionWrapper {
 		}
 		logger.info("############### chainCodeId name: " + chainCodeId.getName() + "##################");
 		Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest);
-		String payload = "";
+		String payload = evaluateResponse(queryProposals);
+		CompletableFuture<BlockEvent.TransactionEvent> txFuture =
+				channel.sendTransaction(queryProposals,
+				client.getUserContext());
+		BlockEvent.TransactionEvent event = txFuture.get(600, TimeUnit.SECONDS);
+		this.transactionID = event.getTransactionID();
+		return payload;
+	}
+
+	protected String evaluateResponse(Collection<ProposalResponse> queryProposals) {
+		String payload="";
 		for (ProposalResponse proposalResponse : queryProposals) {
 			if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
 				logger.error("[Query Failed]:" + proposalResponse.getPeer().getName() + " status: "
@@ -75,12 +85,6 @@ class SessionWrapper {
 				logger.info(proposalResponse.getPeer().getName() + " Risposta " + payload);
 			}
 		}
-
-		channel.sendTransaction(queryProposals); // finalizza la transazione mandando le proposte all'order.
-		CompletableFuture<BlockEvent.TransactionEvent> txFuture = channel.sendTransaction(queryProposals,
-				client.getUserContext());
-		BlockEvent.TransactionEvent event = txFuture.get(600, TimeUnit.SECONDS);
-		this.transactionID = event.getTransactionID();
 		return payload;
 	}
 
@@ -100,10 +104,9 @@ class SessionWrapper {
 			client.setUserContext(userLogged);
 			Peer peer = client.newPeer("testPeer", "grpc://127.0.0.1:7051");
 			Orderer orderer = client.newOrderer("orderer", "grpc://127.0.0.1:7050");
-			channel = client.newChannel("mychannel");
-			// channel = client.getChannel("mychannel");
-			channel.addPeer(peer);
 			EventHub eventHub = client.newEventHub("eventhub", "grpc://localhost:7053");
+			channel = client.newChannel("mychannel");
+			channel.addPeer(peer);
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
@@ -130,11 +133,7 @@ class SessionWrapper {
 
 	}
 
-	public String createChannel() {
-		return null;
-	}
-
-	public void setUserRole(String role) {
+	public void addUserRole(String role) {
 		userLogged.addRoles(role);
 
 	}
@@ -142,7 +141,13 @@ class SessionWrapper {
 	public String getTransactionID() {
 		return this.transactionID;
 	}
+
 	public String getUserName() {
 		return userLogged.getName();
+	}
+
+	public Collection<Peer> getPeers() {
+
+		return channel.getPeers();
 	}
 }
