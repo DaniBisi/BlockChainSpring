@@ -48,6 +48,7 @@ class SessionWrapper {
 		this.userLogged = userLogged;
 		this.chainCodeId = chainCodeId;
 		loginStatus = false;
+		this.transactionID = "noTransactionDone";
 	}
 
 	public String queryDB(String[] query) throws org.hyperledger.fabric.sdk.exception.InvalidArgumentException,
@@ -56,16 +57,13 @@ class SessionWrapper {
 		QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
 		queryByChaincodeRequest.setChaincodeID(chainCodeId);
 		queryByChaincodeRequest.setFcn(query[0]);
+		queryByChaincodeRequest.setArgs(setArguments(query));
+
 		logger.info("############### function name: " + query[0] + "##################");
-		if (query.length > 1) {
-			String[] arg = setArgoments(query);
-			queryByChaincodeRequest.setArgs(arg);
-		}
 		logger.info("############### chainCodeId name: " + chainCodeId.getName() + "##################");
 		Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest);
 		String payload = evaluateResponse(queryProposals);
-		CompletableFuture<BlockEvent.TransactionEvent> txFuture =
-				channel.sendTransaction(queryProposals,
+		CompletableFuture<BlockEvent.TransactionEvent> txFuture = channel.sendTransaction(queryProposals,
 				client.getUserContext());
 		BlockEvent.TransactionEvent event = txFuture.get(600, TimeUnit.SECONDS);
 		this.transactionID = event.getTransactionID();
@@ -73,7 +71,7 @@ class SessionWrapper {
 	}
 
 	protected String evaluateResponse(Collection<ProposalResponse> queryProposals) {
-		String payload="";
+		String payload = "";
 		for (ProposalResponse proposalResponse : queryProposals) {
 			if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
 				logger.error("[Query Failed]:" + proposalResponse.getPeer().getName() + " status: "
@@ -88,10 +86,16 @@ class SessionWrapper {
 		return payload;
 	}
 
-	private String[] setArgoments(String[] query) {
-		String[] arg = new String[query.length - 1];
-		for (int i = 1; i < query.length; i++) {
-			arg[i - 1] = query[i];
+	protected String[] setArguments(String[] query) {
+		String[] arg;
+		if (query.length > 1) {
+			arg = new String[query.length - 1];
+			for (int i = 1; i < query.length; i++) {
+				arg[i - 1] = query[i];
+			}
+
+		} else {
+			arg = null;
 		}
 		return arg;
 	}
@@ -128,6 +132,7 @@ class SessionWrapper {
 			userSecret = caClient.register(rr, userLogged);
 		} catch (Exception e) {
 			logger.error("[Register Fail]:" + e.toString());
+			userSecret = "[Register Fail]";
 		}
 		return userSecret;
 
