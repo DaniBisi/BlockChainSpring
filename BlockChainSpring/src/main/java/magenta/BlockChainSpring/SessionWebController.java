@@ -28,6 +28,9 @@ public class SessionWebController {
 	private String retValue;
 	private String queryAnsware;
 
+	SessionWebController(SessionWrapper u1){
+		this.u1 = u1;
+	}
 	@GetMapping("/")
 	public String welcome(Model model) {
 		if (u1 == null || !u1.getLoginStatus()) {
