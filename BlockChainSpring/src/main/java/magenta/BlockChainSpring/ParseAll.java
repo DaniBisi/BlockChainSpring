@@ -20,7 +20,7 @@ public class ParseAll implements ParseAnsware {
 			JSONArray jSonAnsware = (JSONArray) parser.parse(arguments);
 			for (Object jSonO : jSonAnsware) {
 				JSONObject item = (JSONObject) jSonO;			
-				JSONObject itemProv = (JSONObject) item.get("Record"); 
+//				JSONObject itemProv = (JSONObject) item.get("Record"); 
 				logger.info("keyset = + "+ item.keySet().toString());
 				Message m1 = new Message();
 				for (Object key : item.keySet()) {

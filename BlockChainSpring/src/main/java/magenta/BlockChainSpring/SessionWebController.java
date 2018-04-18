@@ -21,7 +21,7 @@ import magenta.BlockChainSpring.commandFactory;
 
 @Controller
 @Scope("session")
-public class sessionWebController {
+public class SessionWebController {
 	@Value("indexForm")
 	private String resources;
 	private SessionWrapper u1;
@@ -51,7 +51,6 @@ public class sessionWebController {
 			name = "admin";
 			password = "adminpw";
 		}
-
 		CryptoSuite cryptoSuite;
 		try {
 			cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
@@ -87,7 +86,6 @@ public class sessionWebController {
 		if (StringUtils.isEmpty(queryReceived)) {
 			queryReceived = "queryAllVisits";
 		}
-
 		commandFactory f1 = new commandFactory(queryReceived, args);
 		System.out.println("query: " + f1.getFormattedQuery().toString());
 		try {
@@ -105,9 +103,7 @@ public class sessionWebController {
 		model.addAttribute("queryAnsware", queryAnsware);
 
 		if (u1.getLoginStatus()) {
-
 			model.addAttribute("u1", u1);
-			// model.addAttribute("query", new QueryCollect());
 			retValue = "response";
 		} else {
 			retValue = "index";
