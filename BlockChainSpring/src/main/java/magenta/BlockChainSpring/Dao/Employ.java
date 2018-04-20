@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Dao;
 
 import java.util.LinkedList;
 

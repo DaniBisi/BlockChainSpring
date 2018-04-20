@@ -7,6 +7,9 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import magenta.BlockChainSpring.Dao.Car;
+import magenta.BlockChainSpring.Dao.Items;
+
 public class ParseCar implements ParseAnsware {
 
 	private static final Logger logger = LogManager.getLogger(ParseCar.class);

@@ -9,6 +9,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import magenta.BlockChainSpring.Application.Message;
+import magenta.BlockChainSpring.Dao.Items;
+
 public class ParseAll implements ParseAnsware {
 	private static final Logger logger = LogManager.getLogger(ParseAll.class);
 	

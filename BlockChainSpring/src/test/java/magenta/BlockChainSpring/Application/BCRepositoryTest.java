@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Application;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -30,16 +30,17 @@ import org.hyperledger.fabric_ca.sdk.exception.RegistrationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import magenta.BlockChainSpring.AppUser;
-import magenta.BlockChainSpring.SessionWrapper;
 
-public class SessionWrapperTest {
+import magenta.BlockChainSpring.Application.AppUser;
+import magenta.BlockChainSpring.Application.BCRepository;
+
+public class BCRepositoryTest {
 	HFCAClient caClient;
 	HFClient client;
 	AppUser userLogged;
 	ChaincodeID chainCodeId;
 	private Channel c1;
-	SessionWrapper s1;
+	BCRepository s1;
 
 	@Before
 	public void setup() {
@@ -52,13 +53,13 @@ public class SessionWrapperTest {
 
 	@Test
 	public void testConstructor() {
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 	}
 
 	@Test
 	public void testLoginCorrect() throws Exception {
 		when(client.newChannel(anyString())).thenReturn(c1);
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String psswd = "Ciao";
 		assertEquals(true, s1.login(psswd));
 	}
@@ -66,7 +67,7 @@ public class SessionWrapperTest {
 	@Test
 	public void testGetLoginStatus() throws Exception {
 		when(client.newChannel(anyString())).thenReturn(c1);
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String psswd = "Ciao";
 		s1.login(psswd);
 		assertEquals(true, s1.getLoginStatus());
@@ -76,7 +77,7 @@ public class SessionWrapperTest {
 	public void testLoginUnCorrect() throws Exception {
 		// with this test something inside the login function will fail and the exeption
 		// will be handled and login will fail
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String psswd = "Ciao";
 		assertEquals(false, s1.login(psswd));
 	}
@@ -84,7 +85,7 @@ public class SessionWrapperTest {
 	@Test
 	public void testRegisterCorrect() throws Exception {
 		when(caClient.register(any(RegistrationRequest.class), eq(userLogged))).thenReturn("ciao");
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		assertEquals("ciao", s1.userRegister("dani", "org"));
 	}
 
@@ -92,13 +93,13 @@ public class SessionWrapperTest {
 	public void testRegisterUnCorrect() throws Exception {
 		when(caClient.register(any(RegistrationRequest.class), eq(userLogged)))
 				.thenThrow(IllegalArgumentException.class);
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		assertEquals("[Register Fail]", s1.userRegister("dani", "org"));
 	}
 
 	@Test
 	public void testAddUserRole() {
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String psswd = "Ciao";
 		s1.login(psswd);
 		s1.addUserRole("client");
@@ -108,7 +109,7 @@ public class SessionWrapperTest {
 	@Test
 	public void testQueryDbProposalVerifiedOneArguments() throws InvalidArgumentException, ProposalException,
 			InterruptedException, ExecutionException, TimeoutException {
-		s1 = Mockito.spy(new SessionWrapper(caClient, client, userLogged, chainCodeId));
+		s1 = Mockito.spy(new BCRepository(caClient, client, userLogged, chainCodeId));
 		String psswd = "Ciao";
 		when(client.newChannel(any(String.class))).thenReturn(c1);
 		org.hyperledger.fabric.sdk.User u1 = mock(org.hyperledger.fabric.sdk.User.class);
@@ -209,7 +210,7 @@ public class SessionWrapperTest {
 		when(client.newChannel(any(String.class))).thenReturn(c1);
 		org.hyperledger.fabric.sdk.User u1 = mock(org.hyperledger.fabric.sdk.User.class);
 		when(client.getUserContext()).thenReturn(u1);
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String psswd = "Ciao";
 		if (withLogin) {
 			s1.login(psswd);
@@ -219,7 +220,7 @@ public class SessionWrapperTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testSetArguments() {
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String[] query = { "hello", "good morning", "goodbye" };
 		String[] queryFormatted = { "good morning", "goodbye" };
 
@@ -228,7 +229,7 @@ public class SessionWrapperTest {
 
 	@Test
 	public void testSetArgumentsEmpty() {
-		s1 = new SessionWrapper(caClient, client, userLogged, chainCodeId);
+		s1 = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String[] query = {};
 		assertNull(s1.setArguments(query));
 	}

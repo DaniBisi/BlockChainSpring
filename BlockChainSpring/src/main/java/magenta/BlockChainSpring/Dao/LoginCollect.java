@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Dao;
 
 public class LoginCollect {
 	private String userName;

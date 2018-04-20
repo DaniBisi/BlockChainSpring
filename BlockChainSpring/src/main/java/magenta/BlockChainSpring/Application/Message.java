@@ -1,6 +1,8 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Application;
 
 import java.util.LinkedList;
+
+import magenta.BlockChainSpring.Dao.Items;
 
 public class Message implements Items {
 	LinkedList<String> messageTitle;

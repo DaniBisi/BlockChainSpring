@@ -27,7 +27,7 @@
 			<h1>Query Fabcar Ledger</h1>
 			<div id="body">
 				<div id="content">
-					<div th:replace="fragments/indexForm :: ${u1==null || !u1.loginStatus} ? 'loginForm' : 'queryForm'">
+					<div th:replace="fragments/indexForm :: ${resources}">
   &copy; 2016 The Static Templates
 </div>
 				</div>

@@ -2,6 +2,9 @@ package magenta.BlockChainSpring;
 
 import java.util.LinkedList;
 
+import magenta.BlockChainSpring.Application.Message;
+import magenta.BlockChainSpring.Dao.Items;
+
 public class ParseMessage implements ParseAnsware {
 
 	@Override

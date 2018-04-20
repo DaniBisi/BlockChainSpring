@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Application;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

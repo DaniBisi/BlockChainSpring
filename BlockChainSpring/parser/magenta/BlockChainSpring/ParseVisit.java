@@ -10,6 +10,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import magenta.BlockChainSpring.Dao.Employ;
+import magenta.BlockChainSpring.Dao.Items;
+
 public class ParseVisit implements ParseAnsware {
 	private static final Logger logger = LogManager.getLogger(ParseVisit.class);
 	public ParseVisit() {

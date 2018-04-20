@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Application;
 
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
@@ -25,9 +25,9 @@ import org.hyperledger.fabric_ca.sdk.Attribute;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
-class SessionWrapper {
+public class BCRepository {
 
-	private static final Logger logger = LogManager.getLogger(SessionWrapper.class);
+	private static final Logger logger = LogManager.getLogger(BCRepository.class);
 	private HFCAClient caClient;
 	private HFClient client;
 	private Channel channel;
@@ -41,7 +41,7 @@ class SessionWrapper {
 		return loginStatus;
 	}
 
-	public SessionWrapper(HFCAClient caClient, HFClient client, AppUser userLogged, ChaincodeID chainCodeId) {
+	public BCRepository(HFCAClient caClient, HFClient client, AppUser userLogged, ChaincodeID chainCodeId) {
 		BasicConfigurator.configure();
 		this.caClient = caClient;
 		this.client = client;
@@ -53,12 +53,12 @@ class SessionWrapper {
 
 	public String queryDB(String[] query) throws org.hyperledger.fabric.sdk.exception.InvalidArgumentException,
 			ProposalException, InterruptedException, ExecutionException, TimeoutException {
-
 		QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
 		queryByChaincodeRequest.setChaincodeID(chainCodeId);
 		queryByChaincodeRequest.setFcn(query[0]);
-		queryByChaincodeRequest.setArgs(setArguments(query));
-
+		if (setArguments(query) != null) {
+			queryByChaincodeRequest.setArgs(setArguments(query));
+		}
 		logger.info("############### function name: " + query[0] + "##################");
 		logger.info("############### chainCodeId name: " + chainCodeId.getName() + "##################");
 		Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest);
@@ -70,7 +70,7 @@ class SessionWrapper {
 		return payload;
 	}
 
-	protected String evaluateResponse(Collection<ProposalResponse> queryProposals) {
+	public String evaluateResponse(Collection<ProposalResponse> queryProposals) {
 		String payload = "";
 		for (ProposalResponse proposalResponse : queryProposals) {
 			if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
@@ -99,7 +99,7 @@ class SessionWrapper {
 		}
 		return arg;
 	}
-
+	
 	public boolean login(String passw) {
 		try {
 			userEnrollment = caClient.enroll(userLogged.getName(), passw);

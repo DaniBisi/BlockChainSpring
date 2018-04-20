@@ -1,4 +1,4 @@
-package magenta.BlockChainSpring;
+package magenta.BlockChainSpring.Controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
