@@ -2,8 +2,8 @@ package magenta.blockChainSpring.application.service.parser;
 
 import java.util.LinkedList;
 
-import magenta.blockChainSpring.model.Items;
-import magenta.blockChainSpring.model.Message;
+import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.Message;
 
 public class ParseMessage implements ParseAnsware {
 

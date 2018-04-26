@@ -9,8 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import magenta.blockChainSpring.model.Visit;
-import magenta.blockChainSpring.model.Items;
+import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.Visit;
 
 public class ParseVisit implements ParseAnsware {
 	public static final Logger logger = LogManager.getLogger(ParseVisit.class);

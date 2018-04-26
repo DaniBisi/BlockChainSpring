@@ -34,7 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import magenta.blockChainSpring.model.AppUser;
+import magenta.blockChainSpring.application.model.AppUser;
 
 public class BCRepositoryTest {
 	HFCAClient caClient;

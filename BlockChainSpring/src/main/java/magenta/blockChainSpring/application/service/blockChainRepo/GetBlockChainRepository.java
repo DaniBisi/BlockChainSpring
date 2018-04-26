@@ -6,8 +6,8 @@ import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.springframework.stereotype.Service;
 
+import magenta.blockChainSpring.application.model.AppUser;
 import magenta.blockChainSpring.application.repository.BCRepository;
-import magenta.blockChainSpring.model.AppUser;
 
 @Service
 public class GetBlockChainRepository {

@@ -25,7 +25,7 @@ import org.hyperledger.fabric_ca.sdk.Attribute;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
-import magenta.blockChainSpring.model.AppUser;
+import magenta.blockChainSpring.application.model.AppUser;
 
 public class BCRepository {
 

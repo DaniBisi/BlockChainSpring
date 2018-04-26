@@ -19,11 +19,11 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.Visit;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.parser.ParseAnsware;
 import magenta.blockChainSpring.application.service.parser.ParserStrategy;
-import magenta.blockChainSpring.model.Visit;
-import magenta.blockChainSpring.model.Items;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(QueryController.class)

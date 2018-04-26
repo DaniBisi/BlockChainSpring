@@ -2,7 +2,7 @@ package magenta.blockChainSpring.application.service.parser;
 
 import java.util.LinkedList;
 
-import magenta.blockChainSpring.model.Items;
+import magenta.blockChainSpring.application.model.Items;
 
 
 

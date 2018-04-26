@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
-import magenta.blockChainSpring.model.Items;
-import magenta.blockChainSpring.model.Visit;
+import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.Visit;
 
 public class ParseVisitTest {
 

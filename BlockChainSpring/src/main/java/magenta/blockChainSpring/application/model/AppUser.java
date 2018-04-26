@@ -1,4 +1,4 @@
-package magenta.blockChainSpring.model;
+package magenta.blockChainSpring.application.model;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

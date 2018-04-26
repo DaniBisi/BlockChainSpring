@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import magenta.blockChainSpring.application.controller.login.Login;
+import magenta.blockChainSpring.application.model.Items;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.parser.ParserStrategy;
-import magenta.blockChainSpring.model.Items;
 
 @Controller
 public class QueryController {
