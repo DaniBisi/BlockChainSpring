@@ -27,11 +27,8 @@ public class ParseVisitTest {
 		l1.add(new Visit(null, "ec363bd2b1c7715e48ace871bb7fe64820ace657", "Magenta", "Admin", "10-04-18:9.49"));
 		r1 = p1.execute(
 				"{\"IDhash\":\"ec363bd2b1c7715e48ace871bb7fe64820ace657\",\"agency\":\"Magenta\",\"date\":\"10-04-18:9.49\",\"name\":\"Admin\"}");
-		boolean result = true;
-		if (!l1.get(0).equals(r1.get(0))) {
-			result = false;
-		}
-		assertEquals(true, result);
+		
+		assertEquals(true, l1.get(0).equals(r1.get(0)));
 	}
 
 	@Test

@@ -32,5 +32,10 @@ public class ParseStrategyTest {
 		String query = "queryAllVisits";
 		assertThat(p1.getCommandParser(query), instanceOf(ParseAllVisits.class));
 	}
+	@Test
+	public void testQueryInvalid() {
+		String query = "InvalidQuery";
+		assertThat(p1.getCommandParser(query), instanceOf(ParseAllVisits.class));
+	}
 
 }

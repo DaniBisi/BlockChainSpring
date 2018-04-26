@@ -22,16 +22,12 @@ public class ParserStrategy {
 		switch (query) {
 		case "queryAllVisits":
 			return new ParseAllVisits();
-		case "queryAllCars":
-			return new ParseAll();
-		case "queryCar":
-			return new ParseCar();
 		case "queryVisit":
 			return new ParseVisit();
 		case "createVisit":
 			return new ParseMessage();
 		default:
-			return new ParseAll();
+			return new ParseAllVisits();
 		}
 	}
 

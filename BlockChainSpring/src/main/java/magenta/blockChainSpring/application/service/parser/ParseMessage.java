@@ -11,7 +11,9 @@ public class ParseMessage implements ParseAnsware {
 	public LinkedList<Items> execute(String arguments) {
 		LinkedList<Items> record = new LinkedList<Items>();
 		Message m1 = new Message();
+		/*ANALIZE ARGUMENTS TO LOAD CORRECT MESSAGE*/
 		m1.addMessage("Create Visit", "SUCCESSFULL");
+		m1.addMessage("LastInsertedId", arguments);
 		record.add(m1);
 		return record;
 	}
