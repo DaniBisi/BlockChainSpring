@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/indexForm">
+<body>
+	<div th:fragment="loginForm">
+		<form method="post" action="#" th:action="@{/update}"
+			th:object="${login}">
+			<div class="form-group">
+				<label for="exampleTextarea">Name:</label> <input
+					type="Name" th:field="*{userName}" class="form-control" readonly/>
+			</div>
+			<div class="form-group">
+				<label for="exampleTextarea">Agency:</label> <input
+					type="Name" th:field="*{agency}" class="form-control" readonly />
+			</div>
+			<div class="form-group">
+				<label for="exampleTextarea">date:</label> <input
+					type="date" th:field="*{date}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="fileName">File:</label> <input type="file"
+					th:field="*{fileName}" class="form-control" />
+			</div>
+			<input type="submit" id="cVisit" value="cVisit" />
+
+		</form>
+	</div>
+</body>
+</html>

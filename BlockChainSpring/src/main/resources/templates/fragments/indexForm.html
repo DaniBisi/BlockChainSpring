@@ -38,5 +38,45 @@
 			</div>
 		</form>
 	</div>
+	
+	<div th:fragment="visit">
+		<form method="post" action="#" th:action="@{/update}"
+			th:object="${visitCollector}">
+			<div class="form-group">
+				<label for="exampleTextarea">Name:</label> <input
+					type="text" th:field="*{userName}"  class="form-control" readonly/>
+			</div>
+			<div class="form-group">
+				<label for="exampleTextarea">Agency:</label> <input
+					type="text" th:field="*{agency}" class="form-control" readonly/>
+			</div>
+			<div class="form-group">
+				<label for="exampleTextarea">date:</label> <input
+					type="date" th:field="*{date}" th:value="*{date}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="fileName">File:</label> <input type="file"
+					th:field="*{fileName}" class="form-control" />
+			</div><input type="submit" id="cVisit" value="Submit Visit" />
+
+		</form>
+	</div>
+	<div th:fragment="openQueryForm">
+		<p class="lead">
+			Hello <span th:text="${user}"></span> use this form to query the
+			ledger
+		</p>
+		<form method="get" action="#" th:action="@{/openQuery/Question}" th:object="${query}">
+			<div class="form-group">
+				<label for="exampleTextarea">Query:</label> <input type="text"
+					th:field="*{query}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="exampleTextarea">Arguments:</label> <input type="text"
+					th:field="*{args}" class="form-control" /> </br> </br> <input type="submit"
+					id="query" value="Query" />
+			</div>
+		</form>
+	</div>
 </body>
 </html>

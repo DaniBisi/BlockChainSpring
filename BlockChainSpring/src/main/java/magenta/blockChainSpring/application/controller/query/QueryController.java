@@ -26,7 +26,7 @@ public class QueryController {
 		
 		String retValue;
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
-		if (u1.getLoginStatus()) {
+		if (u1 != null && u1.getLoginStatus()) {
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			String query = queryR.getQuery();

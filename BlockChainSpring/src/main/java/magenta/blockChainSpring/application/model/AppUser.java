@@ -59,6 +59,7 @@ public class AppUser implements User {
 	public String getOrganization() {
 		return organization;
 	}
+
 	
 	
 

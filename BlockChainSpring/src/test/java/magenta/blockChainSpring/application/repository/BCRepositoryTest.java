@@ -137,6 +137,38 @@ public class BCRepositoryTest {
 		assertEquals("All Goods", s1.queryDB(args));
 	}
 
+	
+	@Test
+	public void testQueryDbProposalVerifiedMoreArguments() throws InvalidArgumentException, ProposalException,
+			InterruptedException, ExecutionException, TimeoutException {
+		s1 = Mockito.spy(new BCRepository(caClient, client, userLogged, chainCodeId));
+		String psswd = "Ciao";
+		when(client.newChannel(any(String.class))).thenReturn(c1);
+		org.hyperledger.fabric.sdk.User u1 = mock(org.hyperledger.fabric.sdk.User.class);
+		when(client.getUserContext()).thenReturn(u1);
+		s1.login(psswd);
+		QueryByChaincodeRequest q1 = mock(QueryByChaincodeRequest.class);
+		when(client.newQueryProposalRequest()).thenReturn(q1);
+		Collection<ProposalResponse> p1 = new LinkedList<ProposalResponse>();
+		ProposalResponse pRMocked = mock(ProposalResponse.class);
+		when(pRMocked.isVerified()).thenReturn(true);
+		Peer pM1 = mock(Peer.class);
+		when(pRMocked.getPeer()).thenReturn(pM1);
+		p1.add(pRMocked);
+		Mockito.doReturn("All Goods").when(s1).evaluateResponse(any(Collection.class)); // <-- protected method will be
+																						// // tested by itself
+		CompletableFuture<TransactionEvent> txFuture = mock(CompletableFuture.class);
+		BlockEvent.TransactionEvent e1 = mock(BlockEvent.TransactionEvent.class);
+		when(c1.queryByChaincode(any(QueryByChaincodeRequest.class))).thenReturn(p1);
+		when(c1.sendTransaction(p1, u1)).thenReturn(txFuture);
+		when(txFuture.get(600, TimeUnit.SECONDS)).thenReturn(e1);
+		when(e1.getTransactionID()).thenReturn("successIDReturned");
+		String[] args = { "ciao","miao"};
+		assertEquals("All Goods", s1.queryDB(args));
+	}
+
+	
+	
 	@Test
 	public void testGetTransactionId() throws InvalidArgumentException, ProposalException, InterruptedException,
 			ExecutionException, TimeoutException {

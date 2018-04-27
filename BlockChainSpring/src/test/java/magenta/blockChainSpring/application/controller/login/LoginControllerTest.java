@@ -2,7 +2,6 @@ package magenta.blockChainSpring.application.controller.login;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -17,7 +16,6 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import magenta.blockChainSpring.application.controller.home.HomeController;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
 

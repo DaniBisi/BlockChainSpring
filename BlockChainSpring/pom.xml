@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>magenta</groupId>
-	<artifactId>chainBlockSpring</artifactId>
+	<artifactId>BlockChainSpring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>chainBlockSpring</name>
+	<name>BlockChainSpring</name>
 	<description></description>
 
 	<parent>
@@ -23,6 +23,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<jacoco.data.file>${project.build.directory}/coveragereports/jacoco.exec</jacoco.data.file>
+		<jacoco.report.path>${project.build.directory}/jacocout</jacoco.report.path>
+		<!-- For Integration tests -->
+		<jacoco.data.it.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.data.it.file>
+		<jacoco.report.it.path>${project.build.directory}/jacocoout-it</jacoco.report.it.path>
+
 	</properties>
 
 	<dependencies>
@@ -60,10 +66,10 @@
 			<artifactId>webjars-locator</artifactId>
 			<version>0.33</version>
 		</dependency>
-		  <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-        </dependency>    
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -73,12 +79,10 @@
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>2.18.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -91,23 +95,23 @@
 			<artifactId>guava-gwt</artifactId>
 			<version>22.0-rc1</version>
 		</dependency>
-		   <!-- Tomcat Embed -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- JSTL -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <!-- To compile JSP files -->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
+		<!-- Tomcat Embed -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<!-- To compile JSP files -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -118,7 +122,6 @@
 					<artifactId>coveralls-maven-plugin</artifactId>
 					<version>4.3.0</version>
 					<configuration>
-						<repoToken>bwzGtaNbvOtAnNdsHF4EuWSnWftX0ktof</repoToken>
 						<jacocoReports>
 							<jacocoReport>${jacoco.report.path}/jacoco.xml</jacocoReport>
 						</jacocoReports>
@@ -186,7 +189,20 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/AeConverterGui.*</exclude>
+						<exclude>**/magenta/blockChainSpring/application/model/*</exclude>
+						<exclude>**/magenta/blockChainSpring/application/service/blockChainRepo/GetBlockChainRepository.class</exclude>
+						<exclude>**/magenta/blockChainSpring/application/BlockChainSpringApplication.class</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${surefireArgLine}</argLine>
+
+					<excludes>
+						<exclude>**/TestIntegrationIT.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

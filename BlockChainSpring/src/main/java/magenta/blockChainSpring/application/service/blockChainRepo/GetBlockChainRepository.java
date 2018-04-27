@@ -21,7 +21,7 @@ public class GetBlockChainRepository {
 			caClient.setCryptoSuite(cryptoSuite);
 			HFClient client = HFClient.createNewInstance();
 			client.setCryptoSuite(cryptoSuite);
-			return new BCRepository(caClient, client, new AppUser(name, "Org1MSP", "Org1MSP"),
+			return new BCRepository(caClient, client, new AppUser(name, "Magenta", "Org1MSP"),
 					ChaincodeID.newBuilder().setName("employVisit").build());
 		} catch (Exception e1) {
 			e1.printStackTrace();
