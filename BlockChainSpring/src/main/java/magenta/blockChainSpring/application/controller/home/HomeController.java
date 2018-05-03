@@ -25,8 +25,10 @@ public class HomeController {
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 == null || !u1.getLoginStatus()) {
 			model.addAttribute("resources", "loginForm");
+			model.addAttribute("page", "fragments/indexForm");
 			model.addAttribute("login", new Login());
 		} else {
+			model.addAttribute("page", "fragments/indexForm");
 			model.addAttribute("resources", "queryForm");
 			model.addAttribute("query", new Query());
 		}

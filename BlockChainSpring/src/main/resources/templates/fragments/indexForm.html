@@ -26,9 +26,8 @@
 			<div class="form-group">
 				<label for="exampleTextarea">Query:</label> <select
 					th:field="*{query}" class="form-control">
-					<option value="queryVisit">Query one Visit</option>
-					<option value="queryAllVisits">Query all visit</option>
-					<option value="mercedes">Query last visit</option>
+					<option value="queryAllVisits">Query visits (leave empty to select all visits or insert an ID)</option>
+					<option value="lastInsertedId">Query last visit</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -39,28 +38,7 @@
 		</form>
 	</div>
 	
-	<div th:fragment="visit">
-		<form method="post" action="#" th:action="@{/update}"
-			th:object="${visitCollector}">
-			<div class="form-group">
-				<label for="exampleTextarea">Name:</label> <input
-					type="text" th:field="*{userName}"  class="form-control" readonly/>
-			</div>
-			<div class="form-group">
-				<label for="exampleTextarea">Agency:</label> <input
-					type="text" th:field="*{agency}" class="form-control" readonly/>
-			</div>
-			<div class="form-group">
-				<label for="exampleTextarea">date:</label> <input
-					type="date" th:field="*{date}" th:value="*{date}" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="fileName">File:</label> <input type="file"
-					th:field="*{fileName}" class="form-control" />
-			</div><input type="submit" id="cVisit" value="Submit Visit" />
-
-		</form>
-	</div>
+	
 	<div th:fragment="openQueryForm">
 		<p class="lead">
 			Hello <span th:text="${user}"></span> use this form to query the

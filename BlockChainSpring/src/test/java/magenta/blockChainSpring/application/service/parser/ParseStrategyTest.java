@@ -1,6 +1,7 @@
 package magenta.blockChainSpring.application.service.parser;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -32,10 +33,39 @@ public class ParseStrategyTest {
 		String query = "queryAllVisits";
 		assertThat(p1.getCommandParser(query), instanceOf(ParseAllVisits.class));
 	}
+
+	@Test
+	public void testQueryLastInsertedId() {
+		String query = "lastInsertedId";
+		assertThat(p1.getCommandParser(query), instanceOf(ParseAllVisits.class));
+	}
 	@Test
 	public void testQueryInvalid() {
 		String query = "InvalidQuery";
 		assertThat(p1.getCommandParser(query), instanceOf(ParseAllVisits.class));
+	}
+
+	@Test
+	public void testGetFormattedQuery() {
+		String query = "testQuery";
+		String args = "args1 args2 args3";
+		String []queryF = {"testQuery","args1", "args2", "args3"};
+		assertEquals(p1.getFormattedQuery(query, args), queryF);	
+	}
+	@Test
+	public void testGetFormattedQueryArgsNull() {
+		String query = "testQuery";
+		String args = null;
+		String []queryF = {"testQuery"};
+		assertEquals(p1.getFormattedQuery(query, args), queryF);	
+	}
+
+	@Test
+	public void testGetFormattedQueryArgsEmpty() {
+		String query = "testQuery";
+		String args = "";
+		String []queryF = {"testQuery"};
+		assertEquals(p1.getFormattedQuery(query, args), queryF);	
 	}
 
 }

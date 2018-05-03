@@ -26,7 +26,7 @@ public class ParseVisit implements ParseAnsware {
 		try {
 			JSONObject item = (JSONObject) parser.parse(arguments);		
 				logger.info("keyset = + "+ item.keySet().toString());
-				record.add(new Visit((String)item.get("Key"), (String)item.get("IDhash"), (String)item.get("agency"), (String)item.get("name"), (String)item.get("date")));
+				record.add(new Visit((String)item.get("Key"), (String)item.get("IDhash"), (String)item.get("agency"), (String)item.get("name"), (String)item.get("date"), (String)item.get("time")));
 
 		} catch (ParseException e) {
 			logger.info("error parsing jsonobject");

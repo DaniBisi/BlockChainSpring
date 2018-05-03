@@ -8,34 +8,45 @@ public class Visit implements Items {
 	private String idHash;
 	private String agency;
 	private String date;
-	private String name;
-	private String iD;
-
-	public String getName() {
-		return name;
+	private String time;
+	private String userName;
+	private String idVisit;
+	
+	public String getTime() {
+		return time;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public Visit(String ID, String IdHash, String agency, String name, String date) {
-		setiD(ID);
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String name) {
+		this.userName = name;
+	}
+
+	public Visit(String ID, String IdHash, String agency, String name, String date, String time) {
+		setIdVisit(ID);
 		idHash = IdHash;
 		this.agency = agency;
-		this.name = name;
+		this.userName = name;
 		this.date = date;
+		this.time = time;
 		this.valList = new LinkedList<String>();
 		this.valName = new LinkedList<String>();
 		
 	}
 
-	public String getiD() {
-		return iD;
+	public String getIdVisit() {
+		return idVisit;
 	}
 
-	public void setiD(String iD) {
-		this.iD = iD;
+	public void setIdVisit(String iD) {
+		this.idVisit = iD;
 	}
 
 	public String getIdHash() {
@@ -64,11 +75,12 @@ public class Visit implements Items {
 
 	@Override
 	public LinkedList<String> getValList() {
-		valList.add(this.iD);
+		valList.add(this.idVisit);
 		valList.add(this.idHash);
 		valList.add(this.agency);
 		valList.add(this.date);
-		valList.add(this.name);
+		valList.add(this.time);
+		valList.add(this.userName);
 		return valList;
 	}
 
@@ -78,6 +90,7 @@ public class Visit implements Items {
 		valName.add("IdHash");
 		valName.add("agency");
 		valName.add("date");
+		valName.add("time");
 		valName.add("name");
 		return valName;
 	}

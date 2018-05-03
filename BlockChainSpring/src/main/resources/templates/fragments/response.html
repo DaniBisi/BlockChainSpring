@@ -1,0 +1,43 @@
+<div th:fragment="queryResponse">
+	<h1>Query Ledger</h1>
+	<div id="body">
+		<span>Transaction ID</span> <span
+			th:text="${session.u1.transactionID}" th:unless="${session == null}"
+			th:remove="tag">title</span>
+		<h1>Items in ledger:</h1>
+
+		<table id="response" class="table table-striped table-bordered">
+			<tr>
+				<td th:each="name : ${valName}"><span th:text="${name}"></span></td>
+			</tr>
+
+			<tr th:each="item : ${records}">
+				<td th:each="val : ${item.valList}"><span th:text="${val}"></span></td>
+			</tr>
+		</table>
+		<span th:text="${record}" th:remove="tag">title</span>
+
+	</div>
+</div>
+<div th:fragment="queryVisit">
+	<div id="body">
+		<span>Transaction ID</span> <span
+			th:text="${session.u1.transactionID}" th:unless="${session == null}"
+			th:remove="tag">title</span>
+		<h1>Items in ledger:</h1>
+
+		<table id="response" class="table table-striped table-bordered">
+			<tr>
+				<td th:each="name : ${valName}"><span th:text="${name}"></span></td>
+			</tr>
+
+			<tr th:each="item : ${records}">
+			<td th:each="val,iterStat : ${item.valList}"><span th:text="${val}" th:unless="${iterStat.first}"></span>
+			<a th:href="@{'/update' (idVisit=${val})}"  th:if="${iterStat.first}"><span th:text="${val}"></span></a>
+				</td>
+			</tr>
+		</table>
+		<span th:text="${record}" th:remove="tag">title</span>
+
+	</div>
+</div>

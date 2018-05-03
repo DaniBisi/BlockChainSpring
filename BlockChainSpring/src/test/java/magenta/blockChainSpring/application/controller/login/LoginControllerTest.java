@@ -35,7 +35,6 @@ public class LoginControllerTest {
 	@Before
 	public void setup() {
 		session = new MockHttpSession();
-		//gBCRepository = mock(GetBlockChainRepository.class);
 	}
 
 	@Test

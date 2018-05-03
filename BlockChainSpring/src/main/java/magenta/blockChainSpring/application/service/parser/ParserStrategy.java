@@ -24,6 +24,8 @@ public class ParserStrategy {
 			return new ParseAllVisits();
 		case "queryVisit":
 			return new ParseVisit();
+		case "lastInsertedId":
+			return new ParseAllVisits();
 		case "createVisit":
 			return new ParseMessage();
 		default:

@@ -23,7 +23,7 @@ public class QueryController {
 
 	@GetMapping("/query")
 	public String queryRunner(@ModelAttribute("query") Query queryR, Model model, HttpSession httpSession) {
-		
+
 		String retValue;
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 != null && u1.getLoginStatus()) {
@@ -44,16 +44,16 @@ public class QueryController {
 				model.addAttribute("queryAnsware", jSonQueryAnsware);
 				model.addAttribute("valName", record.get(0).getValName());
 			} else {
-//				model.addAttribute("valName", null);
-//				model.addAttribute("records", "empty");
 				model.addAttribute("queryAnsware", "empty");
 			}
-			retValue = "response";
+
+			model.addAttribute("page", "fragments/response");
+			model.addAttribute("resources", "queryVisit");
 		} else {
-			retValue = "index";
+			model.addAttribute("page", "fragments/indexForm");
 			model.addAttribute("resources", "loginForm");
 			model.addAttribute("login", new Login());
 		}
-		return retValue;
+		return "index";
 	}
 }

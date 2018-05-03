@@ -6,6 +6,24 @@ public class VisitCollector {
 	private String agency;
 	private String fileName;
 	private String date;
+	private String time;
+	private String idVisit;
+
+	public String getIdVisit() {
+		return idVisit;
+	}
+
+	public void setIdVisit(String idVisit) {
+		this.idVisit = idVisit;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 
 	public String getUserName() {
 		return userName;

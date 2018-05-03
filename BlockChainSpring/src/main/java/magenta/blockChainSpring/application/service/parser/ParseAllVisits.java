@@ -30,7 +30,7 @@ public class ParseAllVisits implements ParseAnsware {
 				JSONObject item = (JSONObject) jSonO;			
 				JSONObject itemProv = (JSONObject) item.get("Record"); 
 				logger.info("keyset = + "+ item.keySet().toString());
-				record.add(new Visit((String)item.get("Key"), (String)itemProv.get("IDhash"), (String)itemProv.get("agency"), (String)itemProv.get("name"), (String)itemProv.get("date")));
+				record.add(new Visit((String)item.get("Key"), (String)itemProv.get("IDhash"), (String)itemProv.get("agency"), (String)itemProv.get("name"), (String)itemProv.get("date"), (String)itemProv.get("time")));
 			}
 		} catch (ParseException e) {
 			logger.info("error parsing jsonobject");

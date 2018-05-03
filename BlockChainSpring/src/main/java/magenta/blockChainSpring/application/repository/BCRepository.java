@@ -1,19 +1,26 @@
 package magenta.blockChainSpring.application.repository;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.hyperledger.fabric.protos.common.Common.Block;
 import org.hyperledger.fabric.protos.common.Common.BlockData;
+import org.hyperledger.fabric.protos.common.Common.BlockHeader;
 import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.BlockInfo;
+import org.hyperledger.fabric.sdk.BlockchainInfo;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.Enrollment;
@@ -30,8 +37,10 @@ import org.hyperledger.fabric_ca.sdk.Attribute;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Parser;
 
 import magenta.blockChainSpring.application.model.AppUser;
 
@@ -52,6 +61,7 @@ public class BCRepository {
 	}
 
 	public BCRepository(HFCAClient caClient, HFClient client, AppUser userLogged, ChaincodeID chainCodeId) {
+		BasicConfigurator.resetConfiguration();
 		BasicConfigurator.configure();
 		this.caClient = caClient;
 		this.client = client;
@@ -69,7 +79,9 @@ public class BCRepository {
 		if (setArguments(query) != null) {
 			queryByChaincodeRequest.setArgs(setArguments(query));
 		}
-		logger.info("############### function name: " + query[0] + "##################");
+		String []args = setArguments(query);
+		if(args == null)args = new String[] {"non lo trova"};
+		logger.info("############### function name: " + query[0] + " arguments " +args[0] + "##################");
 		logger.info("############### chainCodeId name: " + chainCodeId.getName() + "##################");
 		Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest);
 		String payload = evaluateResponse(queryProposals);
@@ -80,37 +92,50 @@ public class BCRepository {
 		return payload;
 	}
 
-	public String []queryBlock(int blockNumber)
-			throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
-		String payload[] = new String[10];
+	public String[] queryBlock()
+			throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException, UnsupportedEncodingException {
+				BlockchainInfo chainInfo = channel.queryBlockchainInfo();
+		int blockNumber = (int) chainInfo.getHeight();
+		String payload[] = new String[blockNumber];
 		logger.info("############### Query block : " + blockNumber + "##################");
-		LinkedList<byte[]> b1 = new LinkedList<byte[]>();
+		
+		
 		for (int i = 0; i < blockNumber; i++) {
-
 			BlockInfo bInfo = channel.queryBlockByNumber(i);
-			Map<FieldDescriptor, Object> payloadAsByte = bInfo.getBlock().getAllFields();
-			BlockData payloadAsByte2 = bInfo.getBlock().getData();
-			payload[i] = payloadAsByte2.toString();
-//			for (Map.Entry<FieldDescriptor, Object> entry : payloadAsByte.entrySet()) {
-//				String entryString = entry.getKey().toString(); //+ "/" + entry.getValue());
-//				System.out.println(entryString);
-//				if(entryString.equals("common.Block.metadata")) {
-//					System.out.println("YEAHHHHHHHHHHHHHHHHH");
-//					String answareRaw = entry.getValue().toString();
-//					System.out.println(answareRaw);
-//					String[] parts = answareRaw.split("-----END CERTIFICATE-----");
-//					String risposta = "";
-//					if(parts.length>1) {
-//						risposta = parts[1];
-//					}
-//					System.out.println(risposta);
-//					
-//				}
-//			}
-
-			// payload = payload + new String(bInfo.getChannelId());
-			// payload = payload + new String(bInfo.getPreviousHash());
-			// payload = payload + new String(payloadAsByte);
+			Block firstBlock = bInfo.getBlock();
+			byte[] dataHash = bInfo.getDataHash();
+			logger.info(dataHash.toString());
+			byte[] previousHash = bInfo.getPreviousHash();
+			byte[] TransactionMetaData = bInfo.getTransActionsMetaData();
+			BlockData payloadAsBlockData = bInfo.getBlock().getData();
+			ByteString b1 = payloadAsBlockData.toByteString();
+//			payload[i] = payloadAsBlockData.toString();
+			Parser<BlockData> parserBlock = payloadAsBlockData.getParserForType();
+			BlockData responce = parserBlock.parseFrom(b1);
+			List<ByteString> dataList = payloadAsBlockData.getDataList() ;
+			logger.info("############### START DATA LIST : " + blockNumber + "##################");
+			int cont = 0;
+			payload[i] = "";
+			ByteString result = null;
+			for ( ByteString byteString : dataList) {			
+				logger.info("*************** START DATAFIELD : " + cont + "***************");
+//				String value = new String(byteString, "UTF-8");
+				//logger.info(byteString.toString("US-ASCII"));
+				//				String encodedString =  Base64.getEncoder().encodeToString(byteString);
+//				payload[i] = new String(byteString.toStringUtf8(),"UTF-8");
+				if(result == null)result = byteString;
+				else result = result.concat(byteString);
+//				payload[i] = payload[i].replaceAll("[�ϑ]", "");
+//				payload[i] = payload[i].replaceAll("[\\&&[\\d]{3}]", "");
+//				payload[i]  = payload[i].replaceAll("\\p{Cntrl}", "");  
+//				logger.info(payload[i]);
+//				logger.info(b1.isValidUtf8());
+				logger.info("*************** END DATAFIELD : " + cont + "***************");
+				cont = cont +1;
+			}
+			payload[i] = result.toStringUtf8();
+			payload[i] = payload[i].replaceAll("[�ϑ]", "");
+			logger.info("############### END DATA LIST : " + blockNumber + "##################");
 		}
 		return payload;
 

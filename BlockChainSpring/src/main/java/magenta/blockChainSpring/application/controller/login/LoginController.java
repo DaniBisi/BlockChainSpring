@@ -30,9 +30,11 @@ public class LoginController {
 		if (u1 != null && u1.login(password)) {
 			httpSession.setAttribute("u1", u1);
 			model.addAttribute("user", u1.getUserName());
+			model.addAttribute("page", "fragments/indexForm");
 			model.addAttribute("resources", "queryForm");
 			model.addAttribute("query", new Query());
 		} else {
+			model.addAttribute("page", "fragments/indexForm");
 			model.addAttribute("resources", "loginForm");
 			model.addAttribute("login", new Login());
 		}
