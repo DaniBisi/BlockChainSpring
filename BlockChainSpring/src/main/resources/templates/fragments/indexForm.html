@@ -3,6 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/indexForm">
 <body>
 	<div th:fragment="loginForm">
+			<h1>Please Log-in to query the Ledger</h1>
 		<form method="post" action="#" th:action="@{/login}"
 			th:object="${login}">
 			<div class="form-group">
@@ -18,10 +19,10 @@
 		</form>
 	</div>
 	<div th:fragment="queryForm">
-		<p class="lead">
+		<h1>
 			Hello <span th:text="${user}"></span> use this form to query the
 			ledger
-		</p>
+		</h1>
 		<form method="get" action="#" th:action="@{/query}" th:object="${query}">
 			<div class="form-group">
 				<label for="exampleTextarea">Query:</label> <select

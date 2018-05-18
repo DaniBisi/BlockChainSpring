@@ -43,7 +43,7 @@ public class LoginControllerTest {
 		mockRepository = mock(BCRepository.class);
 		String passwd = "adminpw";
 		when(mockRepository.login(passwd)).thenReturn(true);
-		when(gBCRepository.getBCRepository("admin")).thenReturn(mockRepository);
+		when(gBCRepository.getBCRepository("admin","Magenta","Org1MSP")).thenReturn(mockRepository);
 		mockMvc.perform(post("/login").param("userName", "admin").param("password", passwd))
 				.andExpect(view().name("index")).andExpect(model().attribute("resources", "queryForm"));
 	}
@@ -55,7 +55,7 @@ public class LoginControllerTest {
 		mockRepository = mock(BCRepository.class);
 		String passwd = "adminpw";
 		when(mockRepository.login(passwd)).thenReturn(false);
-		when(gBCRepository.getBCRepository("admin")).thenReturn(mockRepository);
+		when(gBCRepository.getBCRepository("admin","Magenta","Org1MSP")).thenReturn(mockRepository);
 		mockMvc.perform(post("/login").param("userName", "admin").param("password", passwd))
 				.andExpect(view().name("index")).andExpect(model().attribute("resources", "loginForm"));
 	}
@@ -65,7 +65,7 @@ public class LoginControllerTest {
 		mockRepository = mock(BCRepository.class);
 		String passwd = "adminpw";
 		when(mockRepository.login(passwd)).thenReturn(false);
-		when(gBCRepository.getBCRepository("admin")).thenReturn(null);
+		when(gBCRepository.getBCRepository("admin","Magenta","Org1MSP")).thenReturn(null);
 		mockMvc.perform(post("/login").param("userName", "admin").param("password", passwd))
 				.andExpect(view().name("index")).andExpect(model().attribute("resources", "loginForm"));
 	}
