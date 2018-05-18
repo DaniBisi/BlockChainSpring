@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import magenta.blockChainSpring.application.controller.login.Login;
 import magenta.blockChainSpring.application.model.Items;
 import magenta.blockChainSpring.application.model.Message;
 import magenta.blockChainSpring.application.repository.BCRepository;
-import magenta.blockChainSpring.application.service.parser.ParserStrategy;
 
 @Controller
 public class BlockChainHistoryController {

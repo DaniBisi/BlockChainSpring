@@ -32,8 +32,6 @@ public class LoginController {
 		if (StringUtils.isEmpty(name)) {
 			name = "admin";
 			password = "adminpw";
-			agency = "Magenta";
-			organization = "Org1MSP";
 		}
 		BCRepository u1 = gBCRepository.getBCRepository(name, agency, organization);
 		if (u1 != null && u1.login(password)) {

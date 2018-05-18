@@ -42,14 +42,6 @@ import magenta.blockChainSpring.application.model.AppUser;
 
 public class BCRepository {
 
-	/*		Peer peer = client.newPeer("testPeer", "grpc://127.0.0.1:7051");
-			Orderer orderer = client.newOrderer("orderer", "grpc://127.0.0.1:7050");
-			EventHub eventHub = client.newEventHub("eventhub", "grpc://localhost:7053");
-			channel = client.newChannel("mychannel");
-			channel.addPeer(peer);
-			channel.addEventHub(eventHub);
-			channel.addOrderer(orderer);
-			channel.initialize();*/
 	private static final Logger logger = LogManager.getLogger(BCRepository.class);
 	private HFCAClient caClient;
 	private HFClient client;
@@ -89,10 +81,6 @@ public class BCRepository {
 		if (setArguments(query) != null) {
 			queryByChaincodeRequest.setArgs(setArguments(query));
 		}
-		String[] args = setArguments(query);
-		if (args == null)
-			args = new String[] { "non lo trova" };
-		logger.info("############### function name: " + query[0] + " arguments " + args[0] + "##################");
 		logger.info("############### chainCodeId name: " + chainCodeId.getName() + "##################");
 		Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest);
 		String payload = evaluateResponse(queryProposals);
@@ -116,22 +104,9 @@ public class BCRepository {
 			logger.info(dataHash.toString());
 			BlockData payloadAsBlockData = bInfo.getBlock().getData();
 			List<ByteString> dataList = payloadAsBlockData.getDataList();
-			logger.info("############### START DATA LIST : " + blockNumber + "##################");
-			int cont = 0;
 			payload[i] = "";
-			ByteString result = null;
-			for (ByteString byteString : dataList) {
-				logger.info("*************** START DATAFIELD : " + cont + "***************");
-				if (result == null)
-					result = byteString;
-				else
-					result = result.concat(byteString);
-				logger.info("*************** END DATAFIELD : " + cont + "***************");
-				cont = cont + 1;
-			}
-			payload[i] = result.toStringUtf8();
+			payload[i] = dataList.get(0).toStringUtf8();
 			payload[i] = payload[i].replaceAll("[�ϑ]", "");
-			logger.info("############### END DATA LIST : " + blockNumber + "##################");
 		}
 		return payload;
 
@@ -183,7 +158,7 @@ public class BCRepository {
 	public void setPeerList(HashMap<String, String> peerListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : peerListP.entrySet()) {
 			peerList.add(client.newPeer(entry.getKey(), entry.getValue()));
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+			logger.info(entry.getKey() + " : " + entry.getValue());
 		}
 
 	}
@@ -191,7 +166,7 @@ public class BCRepository {
 	public void setOrderList(HashMap<String, String> orderListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : orderListP.entrySet()) {
 			orderList.add(client.newOrderer(entry.getKey(), entry.getValue()));
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+			logger.info(entry.getKey() + " : " + entry.getValue());
 		}
 	}
 
@@ -199,9 +174,9 @@ public class BCRepository {
 		for (Entry<String, String> entry : eventListP.entrySet()) {
 			String hubName = entry.getKey();
 			String hubAddress = entry.getValue();
-			EventHub eventHub =client.newEventHub(hubName,hubAddress); 
+			EventHub eventHub = client.newEventHub(hubName, hubAddress);
 			eventHubList.add(eventHub);
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+			logger.info(entry.getKey() + " : " + entry.getValue());
 		}
 
 	}

@@ -2,35 +2,19 @@ package magenta.blockChainSpring.application.controller.visit;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.startup.HomesUserDatabase;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
-import org.bouncycastle.jcajce.provider.digest.SHA3;
-import org.bouncycastle.util.encoders.Hex;
-import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import magenta.blockChainSpring.application.controller.login.Login;
-import magenta.blockChainSpring.application.controller.query.Query;
-import magenta.blockChainSpring.application.model.Items;
-import magenta.blockChainSpring.application.model.Visit;
 import magenta.blockChainSpring.application.repository.BCRepository;
-import magenta.blockChainSpring.application.service.parser.ParserStrategy;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 @Controller
 public class VisitCreateController {
 	

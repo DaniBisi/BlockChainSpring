@@ -23,7 +23,6 @@ public class Message implements Items {
 
 	@Override
 	public LinkedList<String> getValName() {
-		// TODO Auto-generated method stub
 		return messageTitle;
 	}
 

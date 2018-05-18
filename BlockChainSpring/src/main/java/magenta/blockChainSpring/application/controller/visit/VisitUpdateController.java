@@ -1,15 +1,10 @@
 package magenta.blockChainSpring.application.controller.visit;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.startup.HomesUserDatabase;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
@@ -28,7 +23,6 @@ import magenta.blockChainSpring.application.model.Items;
 import magenta.blockChainSpring.application.model.Visit;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.parser.ParserStrategy;
-import java.security.NoSuchAlgorithmException;
 
 @Controller
 public class VisitUpdateController {
