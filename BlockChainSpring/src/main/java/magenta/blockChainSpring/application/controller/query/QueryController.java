@@ -29,9 +29,6 @@ public class QueryController {
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			String query = queryR.getQuery();
-			if (StringUtils.isEmpty(query)) {
-				query = "queryAllVisits";
-			}
 			try {
 				jSonQueryAnsware = u1.queryDB(parserStrategy.getFormattedQuery(query, queryR.getArgs()));
 				record = parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);

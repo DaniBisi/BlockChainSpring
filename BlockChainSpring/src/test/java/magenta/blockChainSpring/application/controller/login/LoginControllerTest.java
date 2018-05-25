@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import magenta.blockChainSpring.application.repository.BCRepository;
+import magenta.blockChainSpring.application.service.blockChainRepo.DbManager;
 import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
 
 @RunWith(SpringRunner.class)
@@ -28,7 +29,9 @@ public class LoginControllerTest {
 
 	@MockBean
 	protected GetBlockChainRepository gBCRepository;
-
+	@MockBean
+	protected DbManager db;
+	
 	protected MockHttpSession session;
 	private BCRepository mockRepository;
 
@@ -42,6 +45,8 @@ public class LoginControllerTest {
 
 		mockRepository = mock(BCRepository.class);
 		String passwd = "adminpw";
+		when(db.getAgency()).thenReturn("Magenta");
+		when(db.getOrganization()).thenReturn("Org1MSP");
 		when(mockRepository.login(passwd)).thenReturn(true);
 		when(gBCRepository.getBCRepository("admin","Magenta","Org1MSP")).thenReturn(mockRepository);
 		mockMvc.perform(post("/login").param("userName", "admin").param("password", passwd))

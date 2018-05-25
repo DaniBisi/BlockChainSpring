@@ -1,4 +1,4 @@
-package magenta.blockChainSpring.application.controller.blockChainHistory;
+package magenta.blockChainSpring.application.controller.chainHistory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
@@ -19,10 +19,7 @@ import magenta.blockChainSpring.application.model.Message;
 import magenta.blockChainSpring.application.repository.BCRepository;
 
 @Controller
-public class BlockChainHistoryController {
-//	@Autowired
-//	private ParserStrategy parserStrategy;
-
+public class ChainHistoryController {
 
 	@GetMapping("/chainhistory")
 	public String chainHistoryRunner(Model model, HttpSession httpSession)
@@ -36,19 +33,19 @@ public class BlockChainHistoryController {
 			int i = 0;
 			for (String data : payload) {
 				Message m = new Message();
-				m.addMessage("Rensponse from " + i, data);
+				m.addMessage("Block " + i, data);
 				record.add(m);
-				i = i++;
+				i = i+1;
 			}
 			if (record.size() > 0) {
 				model.addAttribute("records", record);
-				model.addAttribute("queryAnsware", "boh");
+				model.addAttribute("blockNum", i);
 				model.addAttribute("valName", record.get(0).getValName());
 			} else {
 				model.addAttribute("queryAnsware", "empty");
 			}
-			model.addAttribute("page", "fragments/response");
-			model.addAttribute("resources", "queryResponse");
+			model.addAttribute("page", "fragments/chainHistory");
+			model.addAttribute("resources", "history");
 
 		} else {
 			model.addAttribute("page", "fragments/indexForm");

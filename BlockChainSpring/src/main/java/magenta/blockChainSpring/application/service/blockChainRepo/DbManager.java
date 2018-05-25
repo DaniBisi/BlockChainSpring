@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 @Service
-public class dbManager {
+public class DbManager {
 
 	public HashMap<String, String> getPeerList() {
 		HashMap<String, String> peerList = new HashMap<String,String>();

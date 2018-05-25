@@ -1,0 +1,22 @@
+<div th:fragment="history">
+		<h1>Blocks inside blockChain: <span
+			th:text="${blockNum}" th:unless="${session == null}"
+			th:remove="tag">title</span> </h1>
+	<div id="body">
+		
+
+		<table id="response" class="table table-striped table-bordered">
+
+			<tr th:each="item : ${records}">
+				<td><p th:each="name : ${item.valName}">
+						<span th:text="${name}"></span>
+					</p>
+					<div th:each="val : ${item.valList}">
+						<span th:text="${val}"></span>
+					</div></td>
+			</tr>
+		</table>
+		<span th:text="${record}" th:remove="tag">title</span>
+
+	</div>
+</div>

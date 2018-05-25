@@ -95,16 +95,20 @@ public class BCRepository {
 			UnsupportedEncodingException {
 		BlockchainInfo chainInfo = channel.queryBlockchainInfo();
 		int blockNumber = (int) chainInfo.getHeight();
-		String payload[] = new String[blockNumber];
+		String payload[] ;
+		if(blockNumber>0) {
+		 payload = new String[blockNumber];
+		}else {
+			payload =null;
+		}
 		logger.info("############### Query block : " + blockNumber + "##################");
 
 		for (int i = 0; i < blockNumber; i++) {
 			BlockInfo bInfo = channel.queryBlockByNumber(i);
-			byte[] dataHash = bInfo.getDataHash();
-			logger.info(dataHash.toString());
+//			byte[] dataHash = bInfo.getDataHash();
+//			logger.info(dataHash.toString());
 			BlockData payloadAsBlockData = bInfo.getBlock().getData();
 			List<ByteString> dataList = payloadAsBlockData.getDataList();
-			payload[i] = "";
 			payload[i] = dataList.get(0).toStringUtf8();
 			payload[i] = payload[i].replaceAll("[�ϑ]", "");
 		}
@@ -163,7 +167,7 @@ public class BCRepository {
 
 	}
 
-	public void setOrderList(HashMap<String, String> orderListP) throws InvalidArgumentException {
+	public void setOrdererList(HashMap<String, String> orderListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : orderListP.entrySet()) {
 			orderList.add(client.newOrderer(entry.getKey(), entry.getValue()));
 			logger.info(entry.getKey() + " : " + entry.getValue());
@@ -183,16 +187,28 @@ public class BCRepository {
 
 	public void initChannel(String channelName) throws InvalidArgumentException, TransactionException {
 		channel = client.newChannel(channelName);
-		for (Orderer peer : orderList) {
-			channel.addOrderer(peer);
-		}
-		for (EventHub peer : eventHubList) {
-			channel.addEventHub(peer);
-		}
+		addOrdererToChannel();
+		addEventHubToChannel();
+		addPeerToChannel();
+		channel.initialize();
+	}
+
+	protected void addPeerToChannel() throws InvalidArgumentException {
 		for (Peer peer : peerList) {
 			channel.addPeer(peer);
 		}
-		channel.initialize();
+	}
+
+	protected void addEventHubToChannel() throws InvalidArgumentException {
+		for (EventHub event : eventHubList) {
+			channel.addEventHub(event);
+		}
+	}
+
+	protected void addOrdererToChannel() throws InvalidArgumentException {
+		for (Orderer orderer : orderList) {
+			channel.addOrderer(orderer);
+		}
 	}
 
 	public String userRegister(String username, String org) {

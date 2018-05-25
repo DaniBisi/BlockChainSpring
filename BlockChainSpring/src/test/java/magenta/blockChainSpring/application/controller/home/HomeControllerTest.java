@@ -16,12 +16,13 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import magenta.blockChainSpring.application.controller.ControllerTest;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HomeController.class)
-public class HomeControllerTest {
+public class HomeControllerTest extends ControllerTest{
 
 	@Autowired
 	private MockMvc mockMvc;

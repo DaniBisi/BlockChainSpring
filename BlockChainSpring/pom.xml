@@ -11,7 +11,7 @@
 
 	<name>BlockChainSpring</name>
 	<description></description>
-
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -195,6 +195,7 @@
 					<excludes>
 						<exclude>**/magenta/blockChainSpring/application/model/*</exclude>
 						<exclude>**/magenta/blockChainSpring/application/service/blockChainRepo/GetBlockChainRepository.class</exclude>
+						<exclude>**/magenta/blockChainSpring/application/service/blockChainRepo/DbManager.class</exclude>
 						<exclude>**/magenta/blockChainSpring/application/BlockChainSpringApplication.class</exclude>
 					</excludes>
 				</configuration>

@@ -14,7 +14,7 @@ import magenta.blockChainSpring.application.repository.BCRepository;
 public class GetBlockChainRepository {
 
 	@Autowired
-	dbManager db;
+	DbManager db;
 	
 	public BCRepository getBCRepository(String name,String agency,String organization) {
 

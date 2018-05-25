@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import magenta.blockChainSpring.application.controller.query.Query;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
-import magenta.blockChainSpring.application.service.blockChainRepo.dbManager;
+import magenta.blockChainSpring.application.service.blockChainRepo.DbManager;
 
 @Controller
 public class LoginController {
 	@Autowired
-	private dbManager db;
+	private DbManager db;
 	@Autowired
 	private GetBlockChainRepository gBCRepository;
 
@@ -29,14 +29,11 @@ public class LoginController {
 		String password = login.getPassword();
 		String organization = db.getOrganization();
 		String agency = db.getAgency();
-		if (StringUtils.isEmpty(name)) {
-			name = "admin";
-			password = "adminpw";
-		}
+		
 		BCRepository u1 = gBCRepository.getBCRepository(name, agency, organization);
 		if (u1 != null && u1.login(password)) {
 			u1.setEventList(db.getEventList());
-			u1.setOrderList(db.getOrderList());
+			u1.setOrdererList(db.getOrderList());
 			u1.setPeerList(db.getPeerList());
 			u1.initChannel("mychannel");
 			httpSession.setAttribute("u1", u1);
