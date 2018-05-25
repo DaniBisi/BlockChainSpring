@@ -6,7 +6,7 @@ env:
 - DISPLAY=:99.0
 addons:
   sonarcloud:
-    organization: danibisi
+    organization: danibisi-github
     token:
       secure: LqVk+d0Xr/x0o9mCcJ07F1449ElyMebgKiAJ8Is0c1b6CBSKRGLs291tXJE+B4dHgtc3qjM9gUKhdZ3pp2A+1jkIx+fIdmxOhuOAAOCZP1mYuBfsFYDhqvCQIoJIhsfYRvWFx3P1RgMKczAEHnuXDUze3LH7Y4vuyymrdlm2qzs4kZeC4f8rAgtr8VqZbW4OtCZtbl41l1HDa2vcd7PaxqpVTJHmI+Yixcyq3YxAafRlZwQM7UmUlUTFfIFKd0kC7+H8m7X5yJitnVs+d1ncv98RAdo4TXmMBeebpooSuAtsOAFGGDNqU+vMnKe6hSn651ga3ympDd4JfM95RXtNmm0MewjDkzfumEhZWEYcTL9Bo/Vx9v2h5/7MwkUagAsJb+h8aN+qWbYOPMAzCZ4ZOpldduZ6iksJFBHi+BYLVpGZpgjYEgoxR53A1ulHFv8bWsfMXx3Fkx62RL6thCt6iZEiLGe56u6DV+BZO049hDJYh/MtqZ5U7QJfGM8rvvLlDIG66MfhEWKFiYqDdwK9yucoZXZpRoZ+r49azFe2GR46Uu0mmlkgbrylk2KMbmsQoJtm5FHr6lj9EQwM5FNl1IrFhpwpQkNZ+Kt5eWXHliN27r0LYmRQwP+qqGJLtx6ArMpG6U+qdTb96v/3rJTdVl3s5pgEF/qOPb7A4O2aXWE=
 
