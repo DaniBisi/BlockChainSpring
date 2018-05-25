@@ -2,7 +2,6 @@ package magenta.blockChainSpring.application.controller.login;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import magenta.blockChainSpring.application.controller.query.Query;
 import magenta.blockChainSpring.application.repository.BCRepository;
-import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
 import magenta.blockChainSpring.application.service.blockChainRepo.DbManager;
+import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
 
 @Controller
 public class LoginController {
