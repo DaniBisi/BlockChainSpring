@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import magenta.blockChainSpring.application.controller.login.Login;
 import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.SpringConstant;
 import magenta.blockChainSpring.application.model.Visit;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.parser.ParserStrategy;
@@ -29,26 +30,23 @@ public class VisitUpdateController {
 
 	private static final org.apache.log4j.Logger logger = LogManager.getLogger(VisitCreateController.class);
 
-	public VisitUpdateController() {
-	}
-
 	@GetMapping("/update")
 	public String update(Model model, HttpSession httpSession,
 			@RequestParam(value = "idVisit", required = false) String idVisit) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			VisitCollector visitCollector = new VisitCollector();
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			try {
-				String[] queryLedger = parserStrategy.getFormattedQuery("queryAllVisits", idVisit);
+				String[] queryLedger = parserStrategy.getFormattedQuery(SpringConstant.visitFunction, idVisit);
 				logger.info("queryLedgeer " + queryLedger);
-				jSonQueryAnsware = bcRepo.queryDB(parserStrategy.getFormattedQuery("queryAllVisits", idVisit));
-				record = parserStrategy.getCommandParser("queryAllVisits").execute(jSonQueryAnsware);
+				jSonQueryAnsware = bcRepo.queryDB(parserStrategy.getFormattedQuery(SpringConstant.visitFunction, idVisit));
+				record = parserStrategy.getCommandParser(SpringConstant.visitFunction).execute(jSonQueryAnsware);
 				Visit visit = (Visit) record.get(0);
 				visitCollector.setDate(visit.getDate());
 				visitCollector.setTime(visit.getTime());
@@ -57,14 +55,14 @@ public class VisitUpdateController {
 				visitCollector.setUserName(bcRepo.getUserName());
 				logger.info("sto loggando visit1.time" + visitCollector.getTime());
 
-				model.addAttribute("resources", "updateVisit");
-				model.addAttribute("page", "fragments/visitForm");
+				model.addAttribute(SpringConstant.resourcesPath, "updateVisit");
+				model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
 				model.addAttribute("visitCollector", visitCollector);
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("resources", "queryResponse");
-				model.addAttribute("page", "fragments/response");
-                model.addAttribute("queryAnsware", "empty");
+				model.addAttribute(SpringConstant.resourcesPath, "queryResponse");
+				model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
+				model.addAttribute("queryAnsware", "empty");
 			}
 		}
 		return "index";
@@ -75,8 +73,8 @@ public class VisitUpdateController {
 			HttpSession httpSession) throws NoSuchAlgorithmException {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			String jSonQueryAnsware = "";
@@ -89,12 +87,12 @@ public class VisitUpdateController {
 				e.printStackTrace();
 			}
 			if (record != null && record.size() > 0) {
-				model.addAttribute("resources", "updateVisit");
-				model.addAttribute("page", "fragments/visitForm");
+				model.addAttribute(SpringConstant.resourcesPath, "updateVisit");
+				model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
 				model.addAttribute("visitCollector", visit);
 			} else {
-				model.addAttribute("resources", "queryResponse");
-				model.addAttribute("page", "fragments/response");
+				model.addAttribute(SpringConstant.resourcesPath, "queryResponse");
+				model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}

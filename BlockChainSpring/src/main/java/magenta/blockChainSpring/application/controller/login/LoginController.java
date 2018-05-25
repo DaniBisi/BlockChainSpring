@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import magenta.blockChainSpring.application.controller.query.Query;
+import magenta.blockChainSpring.application.model.SpringConstant;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.blockChainRepo.DbManager;
 import magenta.blockChainSpring.application.service.blockChainRepo.GetBlockChainRepository;
@@ -37,12 +38,12 @@ public class LoginController {
 			u1.initChannel("mychannel");
 			httpSession.setAttribute("u1", u1);
 			model.addAttribute("user", u1.getUserName());
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "queryForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "queryForm");
 			model.addAttribute("query", new Query());
 		} else {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 

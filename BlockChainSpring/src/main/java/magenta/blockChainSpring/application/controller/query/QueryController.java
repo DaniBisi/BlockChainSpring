@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import magenta.blockChainSpring.application.controller.login.Login;
 import magenta.blockChainSpring.application.model.Items;
+import magenta.blockChainSpring.application.model.SpringConstant;
 import magenta.blockChainSpring.application.repository.BCRepository;
 import magenta.blockChainSpring.application.service.parser.ParserStrategy;
 
@@ -42,11 +43,11 @@ public class QueryController {
 				model.addAttribute("queryAnsware", "empty");
 			}
 
-			model.addAttribute("page", "fragments/response");
-			model.addAttribute("resources", "queryVisit");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
+			model.addAttribute(SpringConstant.resourcesPath, "queryVisit");
 		} else {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 		return "index";

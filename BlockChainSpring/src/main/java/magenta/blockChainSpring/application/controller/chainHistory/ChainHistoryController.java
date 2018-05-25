@@ -16,6 +16,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import magenta.blockChainSpring.application.controller.login.Login;
 import magenta.blockChainSpring.application.model.Items;
 import magenta.blockChainSpring.application.model.Message;
+import magenta.blockChainSpring.application.model.SpringConstant;
 import magenta.blockChainSpring.application.repository.BCRepository;
 
 @Controller
@@ -44,12 +45,12 @@ public class ChainHistoryController {
 			} else {
 				model.addAttribute("queryAnsware", "empty");
 			}
-			model.addAttribute("page", "fragments/chainHistory");
-			model.addAttribute("resources", "history");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/chainHistory");
+			model.addAttribute(SpringConstant.resourcesPath, "history");
 
 		} else {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 		return "index";

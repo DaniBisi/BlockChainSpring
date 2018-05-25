@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import magenta.blockChainSpring.application.controller.login.Login;
+import magenta.blockChainSpring.application.model.SpringConstant;
 import magenta.blockChainSpring.application.repository.BCRepository;
 @Controller
 public class VisitCreateController {
@@ -21,15 +22,12 @@ public class VisitCreateController {
 
 	private static final org.apache.log4j.Logger logger = LogManager.getLogger(VisitUpdateController.class);
 
-	public VisitCreateController() {
-	}
-
 	@GetMapping({ "/create" })
 	public String create(Model model, HttpSession httpSession) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute("page", "fragments/indexForm");
-			model.addAttribute("resources", "loginForm");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			VisitCollector v1 = new VisitCollector();
@@ -43,8 +41,8 @@ public class VisitCreateController {
 			v1.setAgency(bcRepo.getUserAgency());
 			v1.setUserName(bcRepo.getUserName());
 			logger.info("sto loggando v1.time" + v1.getTime());
-			model.addAttribute("resources", "createVisit");
-			model.addAttribute("page", "fragments/visitForm");
+			model.addAttribute(SpringConstant.resourcesPath, "createVisit");
+			model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
 			model.addAttribute("visitCollector", v1);
 		}
 		return "index";
