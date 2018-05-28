@@ -24,7 +24,7 @@ public class ParseAllVisits implements ParseAnsware {
 	@Override
 	public List<Items> execute(String arguments) {
 		JSONParser parser = new JSONParser();
-		LinkedList<Items> record = new LinkedList<Items>();
+		LinkedList<Items> record = new LinkedList<>();
 		try {
 			JSONArray jSonAnsware = (JSONArray) parser.parse(arguments);
 			for (Object jSonO : jSonAnsware) {

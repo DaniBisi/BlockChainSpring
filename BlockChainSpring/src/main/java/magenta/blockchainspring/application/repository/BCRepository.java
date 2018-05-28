@@ -1,6 +1,5 @@
 package magenta.blockchainspring.application.repository;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -47,7 +46,7 @@ public class BCRepository implements Serializable {
 	private transient HFCAClient caClient;
 	private transient HFClient client;
 	private transient Channel channel;
-	private AppUser userLogged;
+	private transient AppUser userLogged;
 	private String transactionID;
 	final transient ChaincodeID chainCodeId;
 	private boolean loginStatus;

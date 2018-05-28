@@ -25,7 +25,7 @@ public class DbManager {
 
 	}
 
-	public HashMap<String, String> getEventList() {
+	public Map<String, String> getEventList() {
 		HashMap<String, String> eventList = new HashMap<>();
 		eventList.put("eventhub", "grpc://localhost:7053");
 		return eventList;
