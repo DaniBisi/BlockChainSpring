@@ -46,7 +46,7 @@ public class VisitUpdateController {
 				logger.info("queryLedgeer " + queryLedger);
 				jSonQueryAnsware = bcRepo
 						.queryDB(parserStrategy.getFormattedQuery(SpringConstant.VISITFUNCTION, idVisit));
-				record = parserStrategy.getCommandParser(SpringConstant.VISITFUNCTION).execute(jSonQueryAnsware);
+				record = (LinkedList<Items>) parserStrategy.getCommandParser(SpringConstant.VISITFUNCTION).execute(jSonQueryAnsware);
 				Visit visit = (Visit) record.get(0);
 				visitCollector.setDate(visit.getDate());
 				visitCollector.setTime(visit.getTime());
@@ -83,7 +83,7 @@ public class VisitUpdateController {
 			String[] query = createQuery(visit);
 			try {
 				jSonQueryAnsware = bcRepo.queryDB(query);
-				record = parserStrategy.getCommandParser("createVisit").execute(jSonQueryAnsware);
+				record = (LinkedList<Items>) parserStrategy.getCommandParser("createVisit").execute(jSonQueryAnsware);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());

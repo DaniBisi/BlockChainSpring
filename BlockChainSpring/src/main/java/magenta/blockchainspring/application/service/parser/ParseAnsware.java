@@ -1,11 +1,11 @@
 package magenta.blockchainspring.application.service.parser;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import magenta.blockchainspring.application.model.Items;
 
 
 
 public interface ParseAnsware {
-public LinkedList<Items> execute(String arguments);
+public List<Items> execute(String arguments);
 }

@@ -1,8 +1,8 @@
 package magenta.blockchainspring.application.repository;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -40,18 +40,16 @@ import com.google.protobuf.ByteString;
 
 import magenta.blockchainspring.application.model.AppUser;
 
-public class BCRepository implements Serializable{
-	
-	
+public class BCRepository implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LogManager.getLogger(BCRepository.class);
-	private HFCAClient caClient;
-	private HFClient client;
-	private Channel channel;
-	private Enrollment userEnrollment;
+	private transient HFCAClient caClient;
+	private transient HFClient client;
+	private transient Channel channel;
 	private AppUser userLogged;
 	private String transactionID;
-	final ChaincodeID chainCodeId;
+	final transient ChaincodeID chainCodeId;
 	private boolean loginStatus;
 	protected LinkedList<Peer> peerList;
 	protected LinkedList<Orderer> orderList;
@@ -96,11 +94,11 @@ public class BCRepository implements Serializable{
 	public String[] queryBlock() throws InvalidArgumentException, ProposalException {
 		BlockchainInfo chainInfo = channel.queryBlockchainInfo();
 		int blockNumber = (int) chainInfo.getHeight();
-		String[] payload ;
-		if(blockNumber>0) {
-		 payload = new String[blockNumber];
-		}else {
-			payload =null;
+		String[] payload;
+		if (blockNumber > 0) {
+			payload = new String[blockNumber];
+		} else {
+			payload = null;
 		}
 		logger.info("############### Query block : " + blockNumber + "##################");
 
@@ -146,6 +144,7 @@ public class BCRepository implements Serializable{
 
 	public boolean login(String passw) {
 		try {
+			Enrollment userEnrollment;
 			userEnrollment = caClient.enroll(userLogged.getName(), passw);
 			userLogged.setEnrollment(userEnrollment);
 			client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());

@@ -34,7 +34,7 @@ public class QueryController {
 			String query = queryR.getQueryName();
 			try {
 				jSonQueryAnsware = u1.queryDB(parserStrategy.getFormattedQuery(query, queryR.getArgs()));
-				record = parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);
+				record = (LinkedList<Items>) parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("QUERY FAIL:An error occurred in query procedure...");

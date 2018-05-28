@@ -1,6 +1,7 @@
 package magenta.blockchainspring.application.service.parser;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
@@ -21,7 +22,7 @@ public class ParseAllVisits implements ParseAnsware {
 	}
 	
 	@Override
-	public LinkedList<Items> execute(String arguments) {
+	public List<Items> execute(String arguments) {
 		JSONParser parser = new JSONParser();
 		LinkedList<Items> record = new LinkedList<Items>();
 		try {

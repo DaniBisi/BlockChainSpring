@@ -1,20 +1,23 @@
 package magenta.blockchainspring.application.service.blockchainrepo;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class DbManager {
-
-	public HashMap<String, String> getPeerList() {
+	private final String AGENZIA = "Magenta";
+	private final String CAADDRESS = "http://127.0.0.1:7054";
+	private final String ORAGNIZATION = "Org1MSP";
+	public Map<String, String> getPeerList() {
 		HashMap<String, String> peerList = new HashMap<String,String>();
 		peerList.put("testPeer", "grpc://127.0.0.1:7051");
 		return peerList;
 
 	}
 
-	public HashMap<String, String> getOrderList() {
+	public Map<String, String> getOrderList() {
 		HashMap<String, String> orderList = new HashMap<String,String>();
 		orderList.put("orderer", "grpc://127.0.0.1:7050");
 		return orderList;
@@ -28,15 +31,15 @@ public class DbManager {
 	}
 
 	public String getCaAddress() {
-		return "http://127.0.0.1:7054";
+		return CAADDRESS;
 	}
 
 	public String getAgency() {
-		return "Magenta";
+		return AGENZIA;
 	}
 
 	public String getOrganization() {
-		return "Org1MSP";
+		return ORAGNIZATION;
 	}
 
 }

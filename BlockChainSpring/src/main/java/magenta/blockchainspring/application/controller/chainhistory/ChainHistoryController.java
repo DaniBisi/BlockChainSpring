@@ -1,6 +1,5 @@
 package magenta.blockchainspring.application.controller.chainhistory;
 
-import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
@@ -10,8 +9,6 @@ import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import magenta.blockchainspring.application.controller.login.Login;
 import magenta.blockchainspring.application.model.Items;
@@ -24,7 +21,7 @@ public class ChainHistoryController {
 
 	@GetMapping("/chainhistory")
 	public String chainHistoryRunner(Model model, HttpSession httpSession)
-			throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException, UnsupportedEncodingException {
+			throws InvalidArgumentException, ProposalException {
 
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 != null && u1.getLoginStatus()) {

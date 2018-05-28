@@ -6,5 +6,5 @@ public class SpringConstant {
 	public static final String VISITFUNCTION = "queryAllVisits";
 	private SpringConstant() {
 		
-	};
+	}
 }
