@@ -30,6 +30,11 @@
 		<jacoco.report.it.path>${project.build.directory}/jacocoout-it</jacoco.report.it.path>
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.coverage.exclusions>foo/**/*,**/bar/*</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/magenta/blockchainspring/application/model/*</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/magenta/blockchainspring/application/service/blockchainrepo/GetBlockChainRepository.class</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/magenta/blockchainspring/application/service/blockchainrepo/DbManager.class</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/magenta/blockchainspring/application/BlockChainSpringApplication.class</sonar.coverage.exclusions>
 
 	</properties>
 
