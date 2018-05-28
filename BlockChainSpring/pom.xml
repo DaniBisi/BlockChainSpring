@@ -193,10 +193,10 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/magenta/blockChainSpring/application/model/*</exclude>
-						<exclude>**/magenta/blockChainSpring/application/service/blockChainRepo/GetBlockChainRepository.class</exclude>
-						<exclude>**/magenta/blockChainSpring/application/service/blockChainRepo/DbManager.class</exclude>
-						<exclude>**/magenta/blockChainSpring/application/BlockChainSpringApplication.class</exclude>
+						<exclude>**/magenta/blockchainspring/application/model/*</exclude>
+						<exclude>**/magenta/blockchainspring/application/service/blockchainrepo/GetBlockChainRepository.class</exclude>
+						<exclude>**/magenta/blockchainspring/application/service/blockchainrepo/DbManager.class</exclude>
+						<exclude>**/magenta/blockchainspring/application/BlockChainSpringApplication.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
