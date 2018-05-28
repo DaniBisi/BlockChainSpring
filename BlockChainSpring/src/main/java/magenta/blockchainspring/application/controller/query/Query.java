@@ -1,7 +1,7 @@
 package magenta.blockchainspring.application.controller.query;
 
 public class Query {
-private String query;
+private String queryName;
 private String args;
 public String getArgs() {
 	return args;
@@ -9,11 +9,11 @@ public String getArgs() {
 public void setArgs(String args) {
 	this.args = args;
 }
-public String getQuery() {
-	return query;
+public String getQueryName() {
+	return queryName;
 }
-public void setQuery(String query) {
-	this.query = query;
+public void setQueryName(String queryName) {
+	this.queryName = queryName;
 }
 
 }

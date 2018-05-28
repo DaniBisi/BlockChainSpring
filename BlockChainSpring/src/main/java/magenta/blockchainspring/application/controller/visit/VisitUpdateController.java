@@ -1,6 +1,5 @@
 package magenta.blockchainspring.application.controller.visit;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
@@ -72,7 +71,7 @@ public class VisitUpdateController {
 
 	@PostMapping("/update")
 	public String queryRunner(@ModelAttribute("visitCollector") VisitCollector visit, Model model,
-			HttpSession httpSession) throws NoSuchAlgorithmException {
+			HttpSession httpSession) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
 			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
@@ -89,7 +88,7 @@ public class VisitUpdateController {
 				e.printStackTrace();
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 			}
-			if (record != null && record.size() > 0) {
+			if (record != null && !record.isEmpty()) {
 				model.addAttribute(SpringConstant.resourcesPath, "updateVisit");
 				model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
 				model.addAttribute("visitCollector", visit);

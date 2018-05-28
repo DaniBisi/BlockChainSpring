@@ -41,7 +41,6 @@ public class QueryControllerTest extends ControllerTest{
 	@Before
 	public void setup() {
 		this.page = "query";
-		// gBCRepository = mock(GetBlockChainRepository.class);
 	}
 
 	@Test
@@ -59,7 +58,7 @@ public class QueryControllerTest extends ControllerTest{
 		when(mockRepository.queryDB(args)).thenReturn(jsonAnswareMocked);
 		when(mockRepository.getLoginStatus()).thenReturn(true);
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index")).andExpect(model().attribute("records", llItems))
 				.andExpect(model().attribute("queryAnsware", jsonAnswareMocked));
 	}
@@ -69,7 +68,7 @@ public class QueryControllerTest extends ControllerTest{
 		mockRepository = mock(BCRepository.class);
 		when(mockRepository.getLoginStatus()).thenReturn(false);
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index")).andExpect(model().attribute("resources", "loginForm"))
 				.andExpect(model().attributeExists("login"));
 	}
@@ -91,7 +90,7 @@ public class QueryControllerTest extends ControllerTest{
 		when(mockRepository.queryDB(args)).thenReturn("ciao");
 		when(mockRepository.getLoginStatus()).thenReturn(true);
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index")).andExpect(model().attribute("records", llItems))
 				.andExpect(model().attribute("queryAnsware", "ciao"))
 				.andExpect(model().attribute("valName", valNameMocked));
@@ -106,7 +105,7 @@ public class QueryControllerTest extends ControllerTest{
 		when(mockRepository.queryDB(args))
 				.thenThrow(new org.hyperledger.fabric.sdk.exception.InvalidArgumentException("expected"));
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index"));
 	}
 	@Test
@@ -122,7 +121,7 @@ public class QueryControllerTest extends ControllerTest{
 		when(mockRepository.queryDB(args))
 				.thenThrow(new org.hyperledger.fabric.sdk.exception.InvalidArgumentException("expected"));
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index")).andExpect(model().attribute("queryAnsware","empty"));
 	}
 	@Test
@@ -139,7 +138,7 @@ public class QueryControllerTest extends ControllerTest{
 		when(mockRepository.queryDB(args))
 				.thenThrow(new org.hyperledger.fabric.sdk.exception.InvalidArgumentException("expected"));
 		session.setAttribute("u1", mockRepository);
-		mockMvc.perform(get("/query").session(session).param("query", "queryAllVisits").param("args", ""))
+		mockMvc.perform(get("/query").session(session).param("queryName", "queryAllVisits").param("args", ""))
 				.andExpect(view().name("index")).andExpect(model().attribute("queryAnsware","empty"));
 	}
 

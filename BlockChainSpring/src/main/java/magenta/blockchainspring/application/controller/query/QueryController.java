@@ -31,16 +31,16 @@ public class QueryController {
 		if (u1 != null && u1.getLoginStatus()) {
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
-			String query = queryR.getQuery();
+			String query = queryR.getQueryName();
 			try {
 				jSonQueryAnsware = u1.queryDB(parserStrategy.getFormattedQuery(query, queryR.getArgs()));
 				record = parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.error("LOGIN FAIL:An error occurred in login procedure...");
+				logger.error("QUERY FAIL:An error occurred in query procedure...");
 				
 			}
-			if (record != null && record.size() > 0) {
+			if (record != null && !record.isEmpty()) {
 				model.addAttribute("records", record);
 				model.addAttribute("queryAnsware", jSonQueryAnsware);
 				model.addAttribute("valName", record.get(0).getValName());

@@ -13,11 +13,13 @@ public class AppUser implements User {
 	private String mspId;
 	private Enrollment enrollment;
 	private LinkedHashSet<String> role;
+	private String affiliation;
 	public AppUser(String username, String organization, String msp) {
 		this.username = username;
 		this.organization = organization;
+		this.affiliation = organization;
 		this.mspId = msp;
-		this.role = new LinkedHashSet<String>();
+		this.role = new LinkedHashSet<>();
 	}
 
 	public void setEnrollment(Enrollment enrollment) {
@@ -30,7 +32,7 @@ public class AppUser implements User {
 
 	public String getAffiliation() {
 		
-		return mspId;
+		return affiliation;
 	}
 
 	public Enrollment getEnrollment() {
@@ -58,6 +60,10 @@ public class AppUser implements User {
 
 	public String getOrganization() {
 		return organization;
+	}
+
+	public void setAffiliation(String affiliation) {
+		this.affiliation = affiliation;
 	}
 
 	
