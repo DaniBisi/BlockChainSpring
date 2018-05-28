@@ -19,15 +19,20 @@ public class HomeController {
 	@GetMapping({ "/", "/home" })
 	public String welcome(Model model, HttpSession httpSession) {
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
+		String fragmentsPath = "fragments/indexForm";
+		String resourcesPath ;
+		fragmentsPath = "fragments/indexForm";
 		if (u1 == null || !u1.getLoginStatus()) {
-			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			resourcesPath = "loginForm";
 			model.addAttribute("login", new Login());
 		} else {
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "queryForm");
+			resourcesPath = "queryForm";
 			model.addAttribute("query", new Query());
 		}
+		
+		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
+		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
+		
 		return "index";
 	}
 

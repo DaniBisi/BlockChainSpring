@@ -22,7 +22,8 @@ public class ChainHistoryController {
 	@GetMapping("/chainhistory")
 	public String chainHistoryRunner(Model model, HttpSession httpSession)
 			throws InvalidArgumentException, ProposalException {
-
+		String fragmentsPath = "fragments/indexForm";
+		String resourcesPath ;
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 != null && u1.getLoginStatus()) {
 			String[] payload = u1.queryBlock();
@@ -42,14 +43,16 @@ public class ChainHistoryController {
 			} else {
 				model.addAttribute("queryAnsware", "empty");
 			}
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/chainHistory");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "history");
+			fragmentsPath = "fragments/chainHistory";
+			resourcesPath= "history";
 
 		} else {
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
+			fragmentsPath = "fragments/indexForm";
+			resourcesPath=  "loginForm";
 			model.addAttribute("login", new Login());
 		}
+		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
+		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
 		return "index";
 	}
 }

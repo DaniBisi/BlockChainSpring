@@ -33,9 +33,11 @@ public class VisitUpdateController {
 	public String update(Model model, HttpSession httpSession,
 			@RequestParam(value = "idVisit", required = false) String idVisit) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
+		String fragmentsPath;
+		String resourcesPath;
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
+			fragmentsPath = "fragments/indexForm";
+			resourcesPath = "loginForm";
 			model.addAttribute("login", new Login());
 		} else {
 			VisitCollector visitCollector = new VisitCollector();
@@ -46,7 +48,8 @@ public class VisitUpdateController {
 				logger.info("queryLedgeer " + queryLedger);
 				jSonQueryAnsware = bcRepo
 						.queryDB(parserStrategy.getFormattedQuery(SpringConstant.VISITFUNCTION, idVisit));
-				record = (LinkedList<Items>) parserStrategy.getCommandParser(SpringConstant.VISITFUNCTION).execute(jSonQueryAnsware);
+				record = (LinkedList<Items>) parserStrategy.getCommandParser(SpringConstant.VISITFUNCTION)
+						.execute(jSonQueryAnsware);
 				Visit visit = (Visit) record.get(0);
 				visitCollector.setDate(visit.getDate());
 				visitCollector.setTime(visit.getTime());
@@ -54,17 +57,20 @@ public class VisitUpdateController {
 				visitCollector.setAgency(bcRepo.getUserAgency());
 				visitCollector.setUserName(bcRepo.getUserName());
 
-				model.addAttribute(SpringConstant.RESOURCESPATH, "updateVisit");
-				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
+				fragmentsPath = "fragments/visitForm";
+				resourcesPath = "updateVisit";
 				model.addAttribute("visitCollector", visitCollector);
 			} catch (Exception e) {
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 
-				model.addAttribute(SpringConstant.RESOURCESPATH, "queryResponse");
-				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
+				fragmentsPath = "fragments/response";
+				resourcesPath = "queryResponse";
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
+		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
+		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
+
 		return "index";
 	}
 
@@ -72,9 +78,11 @@ public class VisitUpdateController {
 	public String queryRunner(@ModelAttribute("visitCollector") VisitCollector visit, Model model,
 			HttpSession httpSession) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
+		String fragmentsPath;
+		String resourcesPath;
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
+			fragmentsPath = "fragments/indexForm";
+			resourcesPath = "loginForm";
 			model.addAttribute("login", new Login());
 		} else {
 			String jSonQueryAnsware = "";
@@ -87,15 +95,17 @@ public class VisitUpdateController {
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 			}
 			if (record != null && !record.isEmpty()) {
-				model.addAttribute(SpringConstant.RESOURCESPATH, "updateVisit");
-				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
+				resourcesPath = "updateVisit";
+				fragmentsPath = "fragments/visitForm";
 				model.addAttribute("visitCollector", visit);
 			} else {
-				model.addAttribute(SpringConstant.RESOURCESPATH, "queryResponse");
-				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
+				resourcesPath = "queryResponse";
+				fragmentsPath = "fragments/response";
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
+		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
+		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
 		return "index";
 	}
 

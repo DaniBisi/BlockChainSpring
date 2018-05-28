@@ -26,7 +26,8 @@ public class QueryController {
 
 	@GetMapping("/query")
 	public String queryRunner(@ModelAttribute("query") Query queryR, Model model, HttpSession httpSession) {
-
+		String fragmentsPath = "fragments/indexForm";
+		String resourcesPath;
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 != null && u1.getLoginStatus()) {
 			String jSonQueryAnsware = "";
@@ -37,7 +38,7 @@ public class QueryController {
 				record = (LinkedList<Items>) parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);
 			} catch (Exception e) {
 				logger.error("QUERY FAIL:An error occurred in query procedure..." + e.toString());
-				
+
 			}
 			if (record != null && !record.isEmpty()) {
 				model.addAttribute("records", record);
@@ -47,13 +48,15 @@ public class QueryController {
 				model.addAttribute("queryAnsware", "empty");
 			}
 
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "queryVisit");
+			fragmentsPath = "fragments/response";
+			resourcesPath = "queryVisit";
 		} else {
-			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
-			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
+			fragmentsPath = "fragments/indexForm";
+			resourcesPath = "loginForm";
 			model.addAttribute("login", new Login());
 		}
+		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
+		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
 		return "index";
 	}
 }
