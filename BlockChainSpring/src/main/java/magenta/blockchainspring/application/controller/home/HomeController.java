@@ -20,12 +20,12 @@ public class HomeController {
 	public String welcome(Model model, HttpSession httpSession) {
 		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
 		if (u1 == null || !u1.getLoginStatus()) {
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
 			model.addAttribute("login", new Login());
 		} else {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "queryForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "queryForm");
 			model.addAttribute("query", new Query());
 		}
 		return "index";

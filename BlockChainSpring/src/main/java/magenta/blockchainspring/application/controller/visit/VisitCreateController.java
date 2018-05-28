@@ -24,8 +24,8 @@ public class VisitCreateController {
 	public String create(Model model, HttpSession httpSession) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			VisitCollector v1 = new VisitCollector();
@@ -39,8 +39,8 @@ public class VisitCreateController {
 			v1.setAgency(bcRepo.getUserAgency());
 			v1.setUserName(bcRepo.getUserName());
 			logger.info("sto loggando v1.time" + v1.getTime());
-			model.addAttribute(SpringConstant.resourcesPath, "createVisit");
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "createVisit");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
 			model.addAttribute("visitCollector", v1);
 		}
 		return "index";

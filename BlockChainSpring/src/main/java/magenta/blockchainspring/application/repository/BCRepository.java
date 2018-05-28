@@ -1,11 +1,11 @@
 package magenta.blockchainspring.application.repository;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -37,7 +37,6 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
 import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import magenta.blockchainspring.application.model.AppUser;
 
@@ -67,9 +66,9 @@ public class BCRepository implements Serializable{
 		this.chainCodeId = chainCodeId;
 		loginStatus = false;
 		this.transactionID = "noTransactionDone";
-		peerList = new LinkedList<Peer>();
-		orderList = new LinkedList<Orderer>();
-		eventHubList = new LinkedList<EventHub>();
+		peerList = new LinkedList<>();
+		orderList = new LinkedList<>();
+		eventHubList = new LinkedList<>();
 	}
 
 	public boolean getLoginStatus() {
@@ -94,11 +93,10 @@ public class BCRepository implements Serializable{
 		return payload;
 	}
 
-	public String[] queryBlock() throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException,
-			UnsupportedEncodingException, NullPointerException {
+	public String[] queryBlock() throws InvalidArgumentException, ProposalException {
 		BlockchainInfo chainInfo = channel.queryBlockchainInfo();
 		int blockNumber = (int) chainInfo.getHeight();
-		String payload[] ;
+		String[] payload ;
 		if(blockNumber>0) {
 		 payload = new String[blockNumber];
 		}else {
@@ -160,7 +158,7 @@ public class BCRepository implements Serializable{
 		return true;
 	}
 
-	public void setPeerList(HashMap<String, String> peerListP) throws InvalidArgumentException {
+	public void setPeerList(Map<String, String> peerListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : peerListP.entrySet()) {
 			peerList.add(client.newPeer(entry.getKey(), entry.getValue()));
 			logger.info(entry.getKey() + " : " + entry.getValue());
@@ -168,14 +166,14 @@ public class BCRepository implements Serializable{
 
 	}
 
-	public void setOrdererList(HashMap<String, String> orderListP) throws InvalidArgumentException {
+	public void setOrdererList(Map<String, String> orderListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : orderListP.entrySet()) {
 			orderList.add(client.newOrderer(entry.getKey(), entry.getValue()));
 			logger.info(entry.getKey() + " : " + entry.getValue());
 		}
 	}
 
-	public void setEventList(HashMap<String, String> eventListP) throws InvalidArgumentException {
+	public void setEventList(Map<String, String> eventListP) throws InvalidArgumentException {
 		for (Entry<String, String> entry : eventListP.entrySet()) {
 			String hubName = entry.getKey();
 			String hubAddress = entry.getValue();

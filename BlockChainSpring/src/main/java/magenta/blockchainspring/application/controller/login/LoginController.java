@@ -38,12 +38,12 @@ public class LoginController {
 			u1.initChannel("mychannel");
 			httpSession.setAttribute("u1", u1);
 			model.addAttribute("user", u1.getUserName());
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "queryForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "queryForm");
 			model.addAttribute("query", new Query());
 		} else {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 

@@ -1,14 +1,15 @@
 package magenta.blockchainspring.application.model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Message implements Items {
 	LinkedList<String> messageTitle;
 	LinkedList<String> messageVal;
 
 	public Message() {
-		messageTitle = new LinkedList<String>();
-		messageVal = new LinkedList<String>();
+		messageTitle = new LinkedList<>();
+		messageVal = new LinkedList<>();
 	}
 	
 	public void addMessage(String title,String value) {
@@ -16,13 +17,13 @@ public class Message implements Items {
 		messageVal.add(value);
 	}
 	@Override
-	public LinkedList<String> getValList() {
+	public List<String> getValList() {
 		
 		return messageVal;
 	}
 
 	@Override
-	public LinkedList<String> getValName() {
+	public List<String> getValName() {
 		return messageTitle;
 	}
 

@@ -45,12 +45,12 @@ public class ChainHistoryController {
 			} else {
 				model.addAttribute("queryAnsware", "empty");
 			}
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/chainHistory");
-			model.addAttribute(SpringConstant.resourcesPath, "history");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/chainHistory");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "history");
 
 		} else {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 		return "index";

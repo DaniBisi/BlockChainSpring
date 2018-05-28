@@ -1,6 +1,7 @@
 package magenta.blockchainspring.application.model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Visit implements Items {
 	private LinkedList<String> valName;
@@ -29,15 +30,15 @@ public class Visit implements Items {
 		this.userName = name;
 	}
 
-	public Visit(String ID, String IdHash, String agency, String name, String date, String time) {
-		setIdVisit(ID);
-		idHash = IdHash;
+	public Visit(String iD, String idHash, String agency, String name, String date, String time) {
+		setIdVisit(iD);
+		this.idHash = idHash;
 		this.agency = agency;
 		this.userName = name;
 		this.date = date;
 		this.time = time;
-		this.valList = new LinkedList<String>();
-		this.valName = new LinkedList<String>();
+		this.valList = new LinkedList<>();
+		this.valName = new LinkedList<>();
 		
 	}
 
@@ -74,7 +75,7 @@ public class Visit implements Items {
 	}
 
 	@Override
-	public LinkedList<String> getValList() {
+	public List<String> getValList() {
 		valList.add(this.idVisit);
 		valList.add(this.idHash);
 		valList.add(this.agency);
@@ -85,7 +86,7 @@ public class Visit implements Items {
 	}
 
 	@Override
-	public LinkedList<String> getValName() {
+	public List<String> getValName() {
 		valName.add("ID");
 		valName.add("IdHash");
 		valName.add("agency");

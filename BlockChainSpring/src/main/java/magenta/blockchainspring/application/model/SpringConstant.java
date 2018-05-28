@@ -1,7 +1,10 @@
 package magenta.blockchainspring.application.model;
 
 public class SpringConstant {
-	public static final String resourcesPath = "resources";
-	public static final String fragmentsPath = "page";
-	public static final String visitFunction = "queryAllVisits";
+	public static final String RESOURCESPATH = "resources";
+	public static final String FRAGMENTSPATH = "page";
+	public static final String VISITFUNCTION = "queryAllVisits";
+	private SpringConstant() {
+		
+	};
 }

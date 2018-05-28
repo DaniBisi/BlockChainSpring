@@ -48,11 +48,11 @@ public class QueryController {
 				model.addAttribute("queryAnsware", "empty");
 			}
 
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
-			model.addAttribute(SpringConstant.resourcesPath, "queryVisit");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "queryVisit");
 		} else {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		}
 		return "index";

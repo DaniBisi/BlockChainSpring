@@ -34,19 +34,19 @@ public class VisitUpdateController {
 			@RequestParam(value = "idVisit", required = false) String idVisit) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			VisitCollector visitCollector = new VisitCollector();
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			try {
-				String[] queryLedger = parserStrategy.getFormattedQuery(SpringConstant.visitFunction, idVisit);
+				String[] queryLedger = parserStrategy.getFormattedQuery(SpringConstant.VISITFUNCTION, idVisit);
 				logger.info("queryLedgeer " + queryLedger);
 				jSonQueryAnsware = bcRepo
-						.queryDB(parserStrategy.getFormattedQuery(SpringConstant.visitFunction, idVisit));
-				record = parserStrategy.getCommandParser(SpringConstant.visitFunction).execute(jSonQueryAnsware);
+						.queryDB(parserStrategy.getFormattedQuery(SpringConstant.VISITFUNCTION, idVisit));
+				record = parserStrategy.getCommandParser(SpringConstant.VISITFUNCTION).execute(jSonQueryAnsware);
 				Visit visit = (Visit) record.get(0);
 				visitCollector.setDate(visit.getDate());
 				visitCollector.setTime(visit.getTime());
@@ -54,15 +54,15 @@ public class VisitUpdateController {
 				visitCollector.setAgency(bcRepo.getUserAgency());
 				visitCollector.setUserName(bcRepo.getUserName());
 
-				model.addAttribute(SpringConstant.resourcesPath, "updateVisit");
-				model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
+				model.addAttribute(SpringConstant.RESOURCESPATH, "updateVisit");
+				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
 				model.addAttribute("visitCollector", visitCollector);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 
-				model.addAttribute(SpringConstant.resourcesPath, "queryResponse");
-				model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
+				model.addAttribute(SpringConstant.RESOURCESPATH, "queryResponse");
+				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
@@ -74,8 +74,8 @@ public class VisitUpdateController {
 			HttpSession httpSession) {
 		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
 		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			model.addAttribute(SpringConstant.fragmentsPath, "fragments/indexForm");
-			model.addAttribute(SpringConstant.resourcesPath, "loginForm");
+			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
+			model.addAttribute(SpringConstant.RESOURCESPATH, "loginForm");
 			model.addAttribute("login", new Login());
 		} else {
 			String jSonQueryAnsware = "";
@@ -89,12 +89,12 @@ public class VisitUpdateController {
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 			}
 			if (record != null && !record.isEmpty()) {
-				model.addAttribute(SpringConstant.resourcesPath, "updateVisit");
-				model.addAttribute(SpringConstant.fragmentsPath, "fragments/visitForm");
+				model.addAttribute(SpringConstant.RESOURCESPATH, "updateVisit");
+				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
 				model.addAttribute("visitCollector", visit);
 			} else {
-				model.addAttribute(SpringConstant.resourcesPath, "queryResponse");
-				model.addAttribute(SpringConstant.fragmentsPath, "fragments/response");
+				model.addAttribute(SpringConstant.RESOURCESPATH, "queryResponse");
+				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/response");
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
