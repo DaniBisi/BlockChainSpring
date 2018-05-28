@@ -30,7 +30,7 @@ public class ParseMessageTest {
 		m1.addMessage("Create Visit", "SUCCESSFULL");
 		m1.addMessage("LastInsertedId", "0");
 		l1.add(m1);
-		r1 = p1.execute("0");
+		r1 = (LinkedList<Items>) p1.execute("0");
 		boolean result = checListEquals(l1, r1);
 		assertEquals(true, result);
 	}

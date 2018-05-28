@@ -26,7 +26,7 @@ public class ParseVisitTest {
 		LinkedList<Items> l1 = new LinkedList<Items>();
 		LinkedList<Items> r1 = new LinkedList<Items>();
 		l1.add(new Visit(null, "ec363bd2b1c7715e48ace871bb7fe64820ace657", "Magenta", "Admin", "10-04-18","9.49"));
-		r1 = p1.execute(
+		r1 = (LinkedList<Items>) p1.execute(
 				"{\"IDhash\":\"ec363bd2b1c7715e48ace871bb7fe64820ace657\",\"agency\":\"Magenta\",\"date\":\"10-04-18\",\"time\":\"9.49\",\"name\":\"Admin\"}");
 		
 		assertEquals(true, l1.get(0).isEqualsToItem(r1.get(0)));
@@ -35,7 +35,7 @@ public class ParseVisitTest {
 	@Test
 	public void testParserOneVisitReturnEmptyList() {
 		LinkedList<Items> r1 = new LinkedList<Items>();
-		r1 = p1.execute("");
+		r1 = (LinkedList<Items>) p1.execute("");
 		
 		assertEquals(0, r1.size());
 	}
