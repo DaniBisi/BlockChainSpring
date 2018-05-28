@@ -58,7 +58,6 @@ public class VisitUpdateController {
 				model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/visitForm");
 				model.addAttribute("visitCollector", visitCollector);
 			} catch (Exception e) {
-				e.printStackTrace();
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 
 				model.addAttribute(SpringConstant.RESOURCESPATH, "queryResponse");
@@ -85,7 +84,6 @@ public class VisitUpdateController {
 				jSonQueryAnsware = bcRepo.queryDB(query);
 				record = (LinkedList<Items>) parserStrategy.getCommandParser("createVisit").execute(jSonQueryAnsware);
 			} catch (Exception e) {
-				e.printStackTrace();
 				logger.error("UPDATE FAIL:An error occurred in update procedure..." + e.toString());
 			}
 			if (record != null && !record.isEmpty()) {

@@ -102,7 +102,7 @@ public class BCRepository implements Serializable {
 		}
 		logger.info("############### Query block : " + blockNumber + "##################");
 
-		for (int i = 0; i < blockNumber; i++) {
+		for (int i = 0; i < blockNumber && payload != null; i++) {
 			BlockInfo bInfo = channel.queryBlockByNumber(i);
 			BlockData payloadAsBlockData = bInfo.getBlock().getData();
 			List<ByteString> dataList = payloadAsBlockData.getDataList();
