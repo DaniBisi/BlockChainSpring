@@ -30,14 +30,14 @@ public class LoginController {
 		String organization = db.getOrganization();
 		String agency = db.getAgency();
 		
-		BCRepository u1 = gBCRepository.getBCRepository(name, agency, organization);
-		if (u1 != null && u1.login(password)) {
-			u1.setEventList(db.getEventList());
-			u1.setOrdererList(db.getOrderList());
-			u1.setPeerList(db.getPeerList());
-			u1.initChannel("mychannel");
-			httpSession.setAttribute("u1", u1);
-			model.addAttribute("user", u1.getUserName());
+		BCRepository bcRepo = gBCRepository.getBCRepository(name, agency, organization);
+		if (bcRepo != null && bcRepo.login(password)) {
+			bcRepo.setEventList(db.getEventList());
+			bcRepo.setOrdererList(db.getOrderList());
+			bcRepo.setPeerList(db.getPeerList());
+			bcRepo.initChannel("mychannel");
+			httpSession.setAttribute("u1", bcRepo);
+			model.addAttribute("user", bcRepo.getUserName());
 			model.addAttribute(SpringConstant.FRAGMENTSPATH, "fragments/indexForm");
 			model.addAttribute(SpringConstant.RESOURCESPATH, "queryForm");
 			model.addAttribute("query", new Query());

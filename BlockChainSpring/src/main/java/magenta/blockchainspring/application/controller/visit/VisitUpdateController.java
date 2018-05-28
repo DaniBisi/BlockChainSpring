@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import magenta.blockchainspring.application.controller.login.Login;
+import magenta.blockchainspring.application.SessionHandler;
 import magenta.blockchainspring.application.model.Items;
 import magenta.blockchainspring.application.model.SpringConstant;
 import magenta.blockchainspring.application.model.Visit;
@@ -23,7 +23,7 @@ import magenta.blockchainspring.application.repository.BCRepository;
 import magenta.blockchainspring.application.service.parser.ParserStrategy;
 
 @Controller
-public class VisitUpdateController {
+public class VisitUpdateController extends SessionHandler {
 	@Autowired
 	private ParserStrategy parserStrategy;
 
@@ -32,14 +32,8 @@ public class VisitUpdateController {
 	@GetMapping("/update")
 	public String update(Model model, HttpSession httpSession,
 			@RequestParam(value = "idVisit", required = false) String idVisit) {
-		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
-		String fragmentsPath;
-		String resourcesPath;
-		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			fragmentsPath = "fragments/indexForm";
-			resourcesPath = "loginForm";
-			model.addAttribute("login", new Login());
-		} else {
+		bcRepo = (BCRepository) httpSession.getAttribute("u1");
+		if (checkSession()) {
 			VisitCollector visitCollector = new VisitCollector();
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
@@ -68,8 +62,8 @@ public class VisitUpdateController {
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
-		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
-		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
+
+		setModel(model);
 
 		return "index";
 	}
@@ -77,14 +71,8 @@ public class VisitUpdateController {
 	@PostMapping("/update")
 	public String queryRunner(@ModelAttribute("visitCollector") VisitCollector visit, Model model,
 			HttpSession httpSession) {
-		BCRepository bcRepo = (BCRepository) httpSession.getAttribute("u1");
-		String fragmentsPath;
-		String resourcesPath;
-		if (bcRepo == null || !bcRepo.getLoginStatus()) {
-			fragmentsPath = "fragments/indexForm";
-			resourcesPath = "loginForm";
-			model.addAttribute("login", new Login());
-		} else {
+		bcRepo = (BCRepository) httpSession.getAttribute("u1");
+		if (checkSession()) {
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			String[] query = createQuery(visit);
@@ -104,8 +92,7 @@ public class VisitUpdateController {
 				model.addAttribute("queryAnsware", "empty");
 			}
 		}
-		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
-		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
+		setModel(model);
 		return "index";
 	}
 

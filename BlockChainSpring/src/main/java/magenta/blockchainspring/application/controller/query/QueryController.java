@@ -12,29 +12,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import magenta.blockchainspring.application.controller.login.Login;
+import magenta.blockchainspring.application.SessionHandler;
 import magenta.blockchainspring.application.model.Items;
-import magenta.blockchainspring.application.model.SpringConstant;
 import magenta.blockchainspring.application.repository.BCRepository;
 import magenta.blockchainspring.application.service.parser.ParserStrategy;
 
 @Controller
-public class QueryController {
+public class QueryController extends SessionHandler {
 	@Autowired
 	private ParserStrategy parserStrategy;
 	private static final Logger logger = LogManager.getLogger(QueryController.class);
 
 	@GetMapping("/query")
 	public String queryRunner(@ModelAttribute("query") Query queryR, Model model, HttpSession httpSession) {
-		String fragmentsPath = "fragments/indexForm";
-		String resourcesPath;
-		BCRepository u1 = (BCRepository) httpSession.getAttribute("u1");
-		if (u1 != null && u1.getLoginStatus()) {
+		bcRepo = (BCRepository) httpSession.getAttribute("u1");
+		if (checkSession()) {
 			String jSonQueryAnsware = "";
 			LinkedList<Items> record = null;
 			String query = queryR.getQueryName();
 			try {
-				jSonQueryAnsware = u1.queryDB(parserStrategy.getFormattedQuery(query, queryR.getArgs()));
+				jSonQueryAnsware = bcRepo.queryDB(parserStrategy.getFormattedQuery(query, queryR.getArgs()));
 				record = (LinkedList<Items>) parserStrategy.getCommandParser(query).execute(jSonQueryAnsware);
 			} catch (Exception e) {
 				logger.error("QUERY FAIL:An error occurred in query procedure..." + e.toString());
@@ -50,13 +47,9 @@ public class QueryController {
 
 			fragmentsPath = "fragments/response";
 			resourcesPath = "queryVisit";
-		} else {
-			fragmentsPath = "fragments/indexForm";
-			resourcesPath = "loginForm";
-			model.addAttribute("login", new Login());
 		}
-		model.addAttribute(SpringConstant.FRAGMENTSPATH, fragmentsPath);
-		model.addAttribute(SpringConstant.RESOURCESPATH, resourcesPath);
+		setModel(model);
+
 		return "index";
 	}
 }

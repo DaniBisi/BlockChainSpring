@@ -38,7 +38,7 @@ public class ControllerTest {
 	}
 	
 	@Test
-	public void testNotUserLoggedIn() throws Exception {
+	public void testUserNotLoggedIn() throws Exception {
 		when(mockRepository.getLoginStatus()).thenReturn(false);
 		session.setAttribute("u1", mockRepository);
 		mockMvc.perform(get("/"+page).session(session)).andExpect(view().name("index")).andExpect(model().attribute("resources", "loginForm"))
