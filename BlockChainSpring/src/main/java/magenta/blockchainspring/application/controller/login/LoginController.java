@@ -18,11 +18,14 @@ import magenta.blockchainspring.application.service.blockchainrepo.GetBlockChain
 
 @Controller
 public class LoginController {
-	@Autowired
 	private DbManager db;
-	@Autowired
 	private GetBlockChainRepository gBCRepository;
 
+	@Autowired
+	public LoginController(final DbManager db, final GetBlockChainRepository gBCRepository) {
+		this.db = db;
+		this.gBCRepository = gBCRepository;
+	}
 	@PostMapping("/login")
 	public String loginUser(@ModelAttribute("login") Login login, Model model, HttpSession httpSession) throws InvalidArgumentException, TransactionException {
 		String name = login.getUserName();

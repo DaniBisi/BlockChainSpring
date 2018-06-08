@@ -3,9 +3,10 @@ package magenta.blockchainspring.application.service.blockchainrepo;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-@Service
+@Repository
 public class DbManager {
 	private static final String AGENZIA = "Magenta";
 	private static final String CAADDRESS = "http://127.0.0.1:7054";

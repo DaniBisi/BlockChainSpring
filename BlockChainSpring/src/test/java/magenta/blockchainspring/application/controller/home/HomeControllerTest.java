@@ -36,7 +36,7 @@ public class HomeControllerTest extends ControllerTest{
 	@Before
 	public void setup() {
 		session = new MockHttpSession();
-		//gBCRepository = mock(GetBlockChainRepository.class);
+		gBCRepository = mock(GetBlockChainRepository.class);
 	}
 
 	@Test

@@ -25,7 +25,6 @@ public class ControllerTest {
 	protected MockHttpSession session;
 	protected BCRepository mockRepository;
 	protected String page;
-	
 	@Autowired
 	protected MockMvc mockMvc;
 	
