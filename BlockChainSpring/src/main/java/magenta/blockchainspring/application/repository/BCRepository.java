@@ -1,6 +1,7 @@
 package magenta.blockchainspring.application.repository;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -131,10 +132,7 @@ public class BCRepository implements Serializable {
 	protected String[] setArguments(String[] query) {
 		String[] arg;
 		if (query.length > 1) {
-			arg = new String[query.length - 1];
-			for (int i = 1; i < query.length; i++) {
-				arg[i - 1] = query[i];
-			}
+			arg = Arrays.copyOfRange(query, 1, query.length);
 		} else {
 			arg = null;
 		}

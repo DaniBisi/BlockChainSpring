@@ -381,8 +381,8 @@ public class BCRepositoryTest {
 		bcRepo = new BCRepository(caClient, client, userLogged, chainCodeId);
 		String[] query = { "hello", "good morning", "goodbye" };
 		String[] queryFormatted = { "good morning", "goodbye" };
-
-		assertEquals(queryFormatted, bcRepo.setArguments(query));
+		String[] args = bcRepo.setArguments(query);
+		assertEquals(queryFormatted, args);
 	}
 
 	@Test

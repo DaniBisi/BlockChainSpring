@@ -32,6 +32,7 @@
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
 		<sonar.coverage.exclusions>**/model/* ,
 			**/GetBlockChainRepository.java,**/DbManager.java,**/BlockChainSpringApplication.java</sonar.coverage.exclusions>
+		<sonar.exclusions>**/DbManager.java</sonar.exclusions>
 	</properties>
 
 	<dependencies>
